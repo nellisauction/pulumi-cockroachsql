@@ -11,9 +11,6 @@ on:
       default_branch:
         type: string
         required: true
-    outputs:
-      version:
-        value: ${{ jobs.prerequisites.outputs.version }}
 
 jobs:
   prerequisites:
