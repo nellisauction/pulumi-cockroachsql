@@ -18,11 +18,11 @@ jobs:
           node-version: '24'
       
       - name: Build Provider
-        env:
-          GONOSUMDB: "github.com/nellisauction/*"
-          GOFLAGS: "-mod=mod"
         run: |
-          (cd provider && go mod tidy)
+          cd provider
+          grep -v "nellisauction/terraform-provider-cockroachsql" go.sum > go.sum.tmp && mv go.sum.tmp go.sum
+          GONOSUMDB="github.com/nellisauction/*" go mod tidy
+          cd ..
           make provider_no_deps PROVIDER_VERSION=0.0.0-ci
       
       - name: Build SDK

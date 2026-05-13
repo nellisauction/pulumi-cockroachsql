@@ -24,11 +24,11 @@ jobs:
         run: echo "PROVIDER_VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
 
       - name: Build and Package Provider
-        env:
-          GONOSUMDB: "github.com/nellisauction/*"
-          GOFLAGS: "-mod=mod"
         run: |
-          (cd provider && go mod tidy)
+          cd provider
+          grep -v "nellisauction/terraform-provider-cockroachsql" go.sum > go.sum.tmp && mv go.sum.tmp go.sum
+          GONOSUMDB="github.com/nellisauction/*" go mod tidy
+          cd ..
           make provider_dist-linux-amd64
           make provider_dist-linux-arm64
           make provider_dist-darwin-amd64
