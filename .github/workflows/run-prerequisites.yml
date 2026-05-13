@@ -47,3 +47,25 @@ jobs:
         with:
           major-version: 1
           set-env: 'PROVIDER_VERSION'
+      - name: Cache examples generation
+        uses: actions/cache@v4
+        with:
+          path: |
+            .pulumi/examples-cache
+          key: ${{ runner.os }}-${{ hashFiles('provider/go.sum') }}
+      - name: Setup mise
+        uses: jdx/mise-action@v2
+        with:
+          github_token: ${{ steps.app-auth.outputs.token }}
+          cache_save: true
+      - name: Setup Go Cache
+        uses: actions/setup-go@v5
+        with:
+          cache-dependency-path: |
+            provider/*.sum
+            sdk/go/*.sum
+            *.sum
+      - name: Prepare local workspace
+        run: make prepare_local_workspace
+        env:
+          GITHUB_TOKEN: ${{ steps.app-auth.outputs.token }}
