@@ -1,0 +1,1481 @@
+{
+    "name": "cockroachsql",
+    "displayName": "CockroachSQL",
+    "description": "A Pulumi package for creating and managing CockroachSQL resources.",
+    "keywords": [
+        "pulumi",
+        "cockroachsql",
+        "category/database"
+    ],
+    "homepage": "https://github.com/nellisauction/pulumi-cockroachsql",
+    "license": "Apache-2.0",
+    "attribution": "This Pulumi package is based on the [`cockroachsql` Terraform Provider](https://github.com/nellisauction/terraform-provider-cockroachsql).",
+    "repository": "https://github.com/nellisauction/pulumi-cockroachsql",
+    "pluginDownloadURL": "github://api.github.com/nellisauction/pulumi-cockroachsql",
+    "publisher": "NellisAuction",
+    "meta": {
+        "moduleFormat": "(.*)(?:/[^/]*)"
+    },
+    "language": {
+        "csharp": {
+            "packageReferences": {
+                "Pulumi": "3.*"
+            },
+            "namespaces": {
+                "cockroachsql": "CockroachSql"
+            },
+            "compatibility": "tfbridge20",
+            "respectSchemaVersion": true
+        },
+        "go": {
+            "importBasePath": "github.com/nellisauction/pulumi-cockroachsql/sdk/go/cockroachsql",
+            "generateResourceContainerTypes": true,
+            "generateExtraInputTypes": true,
+            "respectSchemaVersion": true
+        },
+        "nodejs": {
+            "packageName": "@nellisauction/pulumi-cockroachsql",
+            "packageDescription": "A Pulumi package for creating and managing CockroachSQL resources.",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/nellisauction/terraform-provider-cockroachsql)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-cockroachsql` repo](https://github.com/nellisauction/pulumi-cockroachsql/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-cockroachsql` repo](https://github.com/nellisauction/terraform-provider-cockroachsql/issues).",
+            "compatibility": "tfbridge20",
+            "disableUnionOutputTypes": true,
+            "respectSchemaVersion": true
+        },
+        "python": {
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/nellisauction/terraform-provider-cockroachsql)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-cockroachsql` repo](https://github.com/nellisauction/pulumi-cockroachsql/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-cockroachsql` repo](https://github.com/nellisauction/terraform-provider-cockroachsql/issues).",
+            "compatibility": "tfbridge20",
+            "respectSchemaVersion": true,
+            "pyproject": {
+                "enabled": true
+            }
+        }
+    },
+    "config": {
+        "variables": {
+            "clientcert": {
+                "$ref": "#/types/cockroachsql:config/clientcert:clientcert",
+                "description": "SSL client certificate if required by the database."
+            },
+            "connectTimeout": {
+                "type": "integer",
+                "description": "Maximum wait for connection, in seconds. Zero or not specified means wait indefinitely.",
+                "default": 180,
+                "defaultInfo": {
+                    "environment": [
+                        "PGCONNECT_TIMEOUT"
+                    ]
+                }
+            },
+            "database": {
+                "type": "string",
+                "description": "The name of the database to connect to (defaults to \u003cspan pulumi-lang-nodejs=\"`defaultdb`\" pulumi-lang-dotnet=\"`Defaultdb`\" pulumi-lang-go=\"`defaultdb`\" pulumi-lang-python=\"`defaultdb`\" pulumi-lang-yaml=\"`defaultdb`\" pulumi-lang-java=\"`defaultdb`\"\u003e`defaultdb`\u003c/span\u003e)."
+            },
+            "databaseUsername": {
+                "type": "string",
+                "description": "Database username associated to the connected user (for user name maps)"
+            },
+            "expectedVersion": {
+                "type": "string",
+                "description": "Specify the expected version of CockroachDB."
+            },
+            "host": {
+                "type": "string",
+                "description": "Name of CockroachDB server address to connect to"
+            },
+            "maxConnections": {
+                "type": "integer",
+                "description": "Maximum number of connections to establish to the database. Zero means unlimited."
+            },
+            "password": {
+                "type": "string",
+                "description": "Password to be used if the CockroachDB server demands password authentication",
+                "secret": true
+            },
+            "port": {
+                "type": "integer",
+                "description": "The CockroachDB port number to connect to at the server host"
+            },
+            "sslMode": {
+                "type": "string",
+                "deprecationMessage": "Rename CockroachDB provider \u003cspan pulumi-lang-nodejs=\"`sslMode`\" pulumi-lang-dotnet=\"`SslMode`\" pulumi-lang-go=\"`sslMode`\" pulumi-lang-python=\"`ssl_mode`\" pulumi-lang-yaml=\"`sslMode`\" pulumi-lang-java=\"`sslMode`\"\u003e`sslMode`\u003c/span\u003e attribute to \u003cspan pulumi-lang-nodejs=\"`sslmode`\" pulumi-lang-dotnet=\"`Sslmode`\" pulumi-lang-go=\"`sslmode`\" pulumi-lang-python=\"`sslmode`\" pulumi-lang-yaml=\"`sslmode`\" pulumi-lang-java=\"`sslmode`\"\u003e`sslmode`\u003c/span\u003e"
+            },
+            "sslmode": {
+                "type": "string",
+                "description": "This option determines whether or with what priority a secure SSL TCP/IP connection will be negotiated with the CockroachDB server",
+                "defaultInfo": {
+                    "environment": [
+                        "PGSSLMODE"
+                    ]
+                }
+            },
+            "sslrootcert": {
+                "type": "string",
+                "description": "The SSL server root certificate file path. The file must contain PEM encoded data."
+            },
+            "superuser": {
+                "type": "boolean",
+                "description": "Specify if the user to connect as is a CockroachDB superuser or not."
+            },
+            "url": {
+                "type": "string",
+                "description": "Connection URL for CockroachDB. If set, this overrides other connection parameters.",
+                "secret": true
+            },
+            "username": {
+                "type": "string",
+                "description": "CockroachDB user name to connect as"
+            }
+        }
+    },
+    "types": {
+        "cockroachsql:config/clientcert:clientcert": {
+            "properties": {
+                "cert": {
+                    "type": "string",
+                    "description": "The SSL client certificate file path. The file must contain PEM encoded data.\n"
+                },
+                "key": {
+                    "type": "string",
+                    "description": "The SSL client certificate private key file path. The file must contain PEM encoded data.\n"
+                },
+                "sslinline": {
+                    "type": "boolean",
+                    "description": "Must be set to true if you are inlining the cert/key instead of using a file path.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "cert",
+                "key"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "cockroachsql:index/ProviderClientcert:ProviderClientcert": {
+            "properties": {
+                "cert": {
+                    "type": "string",
+                    "description": "The SSL client certificate file path. The file must contain PEM encoded data.\n"
+                },
+                "key": {
+                    "type": "string",
+                    "description": "The SSL client certificate private key file path. The file must contain PEM encoded data.\n"
+                },
+                "sslinline": {
+                    "type": "boolean",
+                    "description": "Must be set to true if you are inlining the cert/key instead of using a file path.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "cert",
+                "key"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": []
+                }
+            }
+        },
+        "cockroachsql:index/getSequencesSequence:getSequencesSequence": {
+            "properties": {
+                "dataType": {
+                    "type": "string"
+                },
+                "objectName": {
+                    "type": "string"
+                },
+                "schemaName": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "required": [
+                "dataType",
+                "objectName",
+                "schemaName"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "cockroachsql:index/getTablesTable:getTablesTable": {
+            "properties": {
+                "objectName": {
+                    "type": "string"
+                },
+                "schemaName": {
+                    "type": "string"
+                },
+                "tableType": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "required": [
+                "objectName",
+                "schemaName",
+                "tableType"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        }
+    },
+    "provider": {
+        "description": "The provider type for the cockroachsql package. By default, resources use package-wide configuration\nsettings, however an explicit `Provider` instance may be created and passed during resource\nconstruction to achieve fine-grained programmatic control over provider settings. See the\n[documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.\n",
+        "properties": {
+            "clientcert": {
+                "$ref": "#/types/cockroachsql:index/ProviderClientcert:ProviderClientcert",
+                "description": "SSL client certificate if required by the database."
+            },
+            "connectTimeout": {
+                "type": "integer",
+                "description": "Maximum wait for connection, in seconds. Zero or not specified means wait indefinitely."
+            },
+            "database": {
+                "type": "string",
+                "description": "The name of the database to connect to (defaults to \u003cspan pulumi-lang-nodejs=\"`defaultdb`\" pulumi-lang-dotnet=\"`Defaultdb`\" pulumi-lang-go=\"`defaultdb`\" pulumi-lang-python=\"`defaultdb`\" pulumi-lang-yaml=\"`defaultdb`\" pulumi-lang-java=\"`defaultdb`\"\u003e`defaultdb`\u003c/span\u003e)."
+            },
+            "databaseUsername": {
+                "type": "string",
+                "description": "Database username associated to the connected user (for user name maps)"
+            },
+            "expectedVersion": {
+                "type": "string",
+                "description": "Specify the expected version of CockroachDB."
+            },
+            "host": {
+                "type": "string",
+                "description": "Name of CockroachDB server address to connect to"
+            },
+            "maxConnections": {
+                "type": "integer",
+                "description": "Maximum number of connections to establish to the database. Zero means unlimited."
+            },
+            "password": {
+                "type": "string",
+                "description": "Password to be used if the CockroachDB server demands password authentication",
+                "secret": true
+            },
+            "port": {
+                "type": "integer",
+                "description": "The CockroachDB port number to connect to at the server host"
+            },
+            "sslMode": {
+                "type": "string",
+                "deprecationMessage": "Rename CockroachDB provider \u003cspan pulumi-lang-nodejs=\"`sslMode`\" pulumi-lang-dotnet=\"`SslMode`\" pulumi-lang-go=\"`sslMode`\" pulumi-lang-python=\"`ssl_mode`\" pulumi-lang-yaml=\"`sslMode`\" pulumi-lang-java=\"`sslMode`\"\u003e`sslMode`\u003c/span\u003e attribute to \u003cspan pulumi-lang-nodejs=\"`sslmode`\" pulumi-lang-dotnet=\"`Sslmode`\" pulumi-lang-go=\"`sslmode`\" pulumi-lang-python=\"`sslmode`\" pulumi-lang-yaml=\"`sslmode`\" pulumi-lang-java=\"`sslmode`\"\u003e`sslmode`\u003c/span\u003e"
+            },
+            "sslmode": {
+                "type": "string",
+                "description": "This option determines whether or with what priority a secure SSL TCP/IP connection will be negotiated with the CockroachDB server"
+            },
+            "sslrootcert": {
+                "type": "string",
+                "description": "The SSL server root certificate file path. The file must contain PEM encoded data."
+            },
+            "superuser": {
+                "type": "boolean",
+                "description": "Specify if the user to connect as is a CockroachDB superuser or not."
+            },
+            "url": {
+                "type": "string",
+                "description": "Connection URL for CockroachDB. If set, this overrides other connection parameters.",
+                "secret": true
+            },
+            "username": {
+                "type": "string",
+                "description": "CockroachDB user name to connect as"
+            }
+        },
+        "inputProperties": {
+            "clientcert": {
+                "$ref": "#/types/cockroachsql:index/ProviderClientcert:ProviderClientcert",
+                "description": "SSL client certificate if required by the database."
+            },
+            "connectTimeout": {
+                "type": "integer",
+                "description": "Maximum wait for connection, in seconds. Zero or not specified means wait indefinitely.",
+                "default": 180,
+                "defaultInfo": {
+                    "environment": [
+                        "PGCONNECT_TIMEOUT"
+                    ]
+                }
+            },
+            "database": {
+                "type": "string",
+                "description": "The name of the database to connect to (defaults to \u003cspan pulumi-lang-nodejs=\"`defaultdb`\" pulumi-lang-dotnet=\"`Defaultdb`\" pulumi-lang-go=\"`defaultdb`\" pulumi-lang-python=\"`defaultdb`\" pulumi-lang-yaml=\"`defaultdb`\" pulumi-lang-java=\"`defaultdb`\"\u003e`defaultdb`\u003c/span\u003e)."
+            },
+            "databaseUsername": {
+                "type": "string",
+                "description": "Database username associated to the connected user (for user name maps)"
+            },
+            "expectedVersion": {
+                "type": "string",
+                "description": "Specify the expected version of CockroachDB."
+            },
+            "host": {
+                "type": "string",
+                "description": "Name of CockroachDB server address to connect to"
+            },
+            "maxConnections": {
+                "type": "integer",
+                "description": "Maximum number of connections to establish to the database. Zero means unlimited."
+            },
+            "password": {
+                "type": "string",
+                "description": "Password to be used if the CockroachDB server demands password authentication",
+                "secret": true
+            },
+            "port": {
+                "type": "integer",
+                "description": "The CockroachDB port number to connect to at the server host"
+            },
+            "sslMode": {
+                "type": "string",
+                "deprecationMessage": "Rename CockroachDB provider \u003cspan pulumi-lang-nodejs=\"`sslMode`\" pulumi-lang-dotnet=\"`SslMode`\" pulumi-lang-go=\"`sslMode`\" pulumi-lang-python=\"`ssl_mode`\" pulumi-lang-yaml=\"`sslMode`\" pulumi-lang-java=\"`sslMode`\"\u003e`sslMode`\u003c/span\u003e attribute to \u003cspan pulumi-lang-nodejs=\"`sslmode`\" pulumi-lang-dotnet=\"`Sslmode`\" pulumi-lang-go=\"`sslmode`\" pulumi-lang-python=\"`sslmode`\" pulumi-lang-yaml=\"`sslmode`\" pulumi-lang-java=\"`sslmode`\"\u003e`sslmode`\u003c/span\u003e"
+            },
+            "sslmode": {
+                "type": "string",
+                "description": "This option determines whether or with what priority a secure SSL TCP/IP connection will be negotiated with the CockroachDB server",
+                "defaultInfo": {
+                    "environment": [
+                        "PGSSLMODE"
+                    ]
+                }
+            },
+            "sslrootcert": {
+                "type": "string",
+                "description": "The SSL server root certificate file path. The file must contain PEM encoded data."
+            },
+            "superuser": {
+                "type": "boolean",
+                "description": "Specify if the user to connect as is a CockroachDB superuser or not."
+            },
+            "url": {
+                "type": "string",
+                "description": "Connection URL for CockroachDB. If set, this overrides other connection parameters.",
+                "secret": true
+            },
+            "username": {
+                "type": "string",
+                "description": "CockroachDB user name to connect as"
+            }
+        },
+        "methods": {
+            "terraformConfig": "pulumi:providers:cockroachsql/terraformConfig"
+        }
+    },
+    "resources": {
+        "cockroachsql:index/database:Database": {
+            "properties": {
+                "encoding": {
+                    "type": "string",
+                    "description": "Character set encoding to use in the new database"
+                },
+                "lcCollate": {
+                    "type": "string",
+                    "description": "Collation order (LC_COLLATE) to use in the new database"
+                },
+                "lcCtype": {
+                    "type": "string",
+                    "description": "Character classification (LC_CTYPE) to use in the new database"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the database"
+                },
+                "owner": {
+                    "type": "string",
+                    "description": "The role name of the database owner"
+                },
+                "tablespaceName": {
+                    "type": "string",
+                    "description": "The name of the tablespace that will be associated with the new database"
+                },
+                "template": {
+                    "type": "string",
+                    "description": "The name of the template database from which to create the new database"
+                }
+            },
+            "required": [
+                "encoding",
+                "lcCollate",
+                "lcCtype",
+                "name",
+                "owner",
+                "tablespaceName",
+                "template"
+            ],
+            "inputProperties": {
+                "encoding": {
+                    "type": "string",
+                    "description": "Character set encoding to use in the new database",
+                    "willReplaceOnChanges": true
+                },
+                "lcCollate": {
+                    "type": "string",
+                    "description": "Collation order (LC_COLLATE) to use in the new database",
+                    "willReplaceOnChanges": true
+                },
+                "lcCtype": {
+                    "type": "string",
+                    "description": "Character classification (LC_CTYPE) to use in the new database",
+                    "willReplaceOnChanges": true
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the database",
+                    "willReplaceOnChanges": true
+                },
+                "owner": {
+                    "type": "string",
+                    "description": "The role name of the database owner"
+                },
+                "tablespaceName": {
+                    "type": "string",
+                    "description": "The name of the tablespace that will be associated with the new database",
+                    "willReplaceOnChanges": true
+                },
+                "template": {
+                    "type": "string",
+                    "description": "The name of the template database from which to create the new database",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Database resources.\n",
+                "properties": {
+                    "encoding": {
+                        "type": "string",
+                        "description": "Character set encoding to use in the new database",
+                        "willReplaceOnChanges": true
+                    },
+                    "lcCollate": {
+                        "type": "string",
+                        "description": "Collation order (LC_COLLATE) to use in the new database",
+                        "willReplaceOnChanges": true
+                    },
+                    "lcCtype": {
+                        "type": "string",
+                        "description": "Character classification (LC_CTYPE) to use in the new database",
+                        "willReplaceOnChanges": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the database",
+                        "willReplaceOnChanges": true
+                    },
+                    "owner": {
+                        "type": "string",
+                        "description": "The role name of the database owner"
+                    },
+                    "tablespaceName": {
+                        "type": "string",
+                        "description": "The name of the tablespace that will be associated with the new database",
+                        "willReplaceOnChanges": true
+                    },
+                    "template": {
+                        "type": "string",
+                        "description": "The name of the template database from which to create the new database",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "cockroachsql:index/defaultPrivileges:DefaultPrivileges": {
+            "properties": {
+                "database": {
+                    "type": "string",
+                    "description": "The database to grant default privileges for this role"
+                },
+                "forAllRoles": {
+                    "type": "boolean",
+                    "description": "If true, alter default privileges for all roles."
+                },
+                "objectType": {
+                    "type": "string",
+                    "description": "The CockroachSQL object type to set the default privileges on (one of: table, sequence, function, routine, type, schema)"
+                },
+                "owner": {
+                    "type": "string",
+                    "description": "Target role for which to alter default privileges."
+                },
+                "privileges": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The list of privileges to apply as default privileges"
+                },
+                "role": {
+                    "type": "string",
+                    "description": "The name of the role to which grant default privileges on"
+                },
+                "schema": {
+                    "type": "string",
+                    "description": "The database schema to set default privileges for this role"
+                },
+                "withGrantOption": {
+                    "type": "boolean",
+                    "description": "Permit the grant recipient to grant it to others"
+                }
+            },
+            "required": [
+                "database",
+                "objectType",
+                "privileges",
+                "role"
+            ],
+            "inputProperties": {
+                "database": {
+                    "type": "string",
+                    "description": "The database to grant default privileges for this role",
+                    "willReplaceOnChanges": true
+                },
+                "forAllRoles": {
+                    "type": "boolean",
+                    "description": "If true, alter default privileges for all roles.",
+                    "willReplaceOnChanges": true
+                },
+                "objectType": {
+                    "type": "string",
+                    "description": "The CockroachSQL object type to set the default privileges on (one of: table, sequence, function, routine, type, schema)",
+                    "willReplaceOnChanges": true
+                },
+                "owner": {
+                    "type": "string",
+                    "description": "Target role for which to alter default privileges.",
+                    "willReplaceOnChanges": true
+                },
+                "privileges": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The list of privileges to apply as default privileges"
+                },
+                "role": {
+                    "type": "string",
+                    "description": "The name of the role to which grant default privileges on",
+                    "willReplaceOnChanges": true
+                },
+                "schema": {
+                    "type": "string",
+                    "description": "The database schema to set default privileges for this role",
+                    "willReplaceOnChanges": true
+                },
+                "withGrantOption": {
+                    "type": "boolean",
+                    "description": "Permit the grant recipient to grant it to others",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "database",
+                "objectType",
+                "privileges",
+                "role"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering DefaultPrivileges resources.\n",
+                "properties": {
+                    "database": {
+                        "type": "string",
+                        "description": "The database to grant default privileges for this role",
+                        "willReplaceOnChanges": true
+                    },
+                    "forAllRoles": {
+                        "type": "boolean",
+                        "description": "If true, alter default privileges for all roles.",
+                        "willReplaceOnChanges": true
+                    },
+                    "objectType": {
+                        "type": "string",
+                        "description": "The CockroachSQL object type to set the default privileges on (one of: table, sequence, function, routine, type, schema)",
+                        "willReplaceOnChanges": true
+                    },
+                    "owner": {
+                        "type": "string",
+                        "description": "Target role for which to alter default privileges.",
+                        "willReplaceOnChanges": true
+                    },
+                    "privileges": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "The list of privileges to apply as default privileges"
+                    },
+                    "role": {
+                        "type": "string",
+                        "description": "The name of the role to which grant default privileges on",
+                        "willReplaceOnChanges": true
+                    },
+                    "schema": {
+                        "type": "string",
+                        "description": "The database schema to set default privileges for this role",
+                        "willReplaceOnChanges": true
+                    },
+                    "withGrantOption": {
+                        "type": "boolean",
+                        "description": "Permit the grant recipient to grant it to others",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "cockroachsql:index/grant:Grant": {
+            "properties": {
+                "columns": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The specific columns to grant privileges on for this role"
+                },
+                "database": {
+                    "type": "string",
+                    "description": "The database to grant privileges on for this role"
+                },
+                "objectType": {
+                    "type": "string",
+                    "description": "The CockroachSQL object type to grant the privileges on (one of: database, function, procedure, routine, schema, sequence, table, foreign_data_wrapper, foreign_server, column)"
+                },
+                "objects": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The specific objects to grant privileges on for this role (empty means all objects of the requested type)"
+                },
+                "privileges": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The list of privileges to grant"
+                },
+                "role": {
+                    "type": "string",
+                    "description": "The name of the role to grant privileges on"
+                },
+                "schema": {
+                    "type": "string",
+                    "description": "The database schema to grant privileges on for this role"
+                },
+                "withGrantOption": {
+                    "type": "boolean",
+                    "description": "Permit the grant recipient to grant it to others"
+                }
+            },
+            "required": [
+                "database",
+                "objectType",
+                "privileges",
+                "role"
+            ],
+            "inputProperties": {
+                "columns": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The specific columns to grant privileges on for this role",
+                    "willReplaceOnChanges": true
+                },
+                "database": {
+                    "type": "string",
+                    "description": "The database to grant privileges on for this role",
+                    "willReplaceOnChanges": true
+                },
+                "objectType": {
+                    "type": "string",
+                    "description": "The CockroachSQL object type to grant the privileges on (one of: database, function, procedure, routine, schema, sequence, table, foreign_data_wrapper, foreign_server, column)",
+                    "willReplaceOnChanges": true
+                },
+                "objects": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The specific objects to grant privileges on for this role (empty means all objects of the requested type)",
+                    "willReplaceOnChanges": true
+                },
+                "privileges": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The list of privileges to grant"
+                },
+                "role": {
+                    "type": "string",
+                    "description": "The name of the role to grant privileges on",
+                    "willReplaceOnChanges": true
+                },
+                "schema": {
+                    "type": "string",
+                    "description": "The database schema to grant privileges on for this role",
+                    "willReplaceOnChanges": true
+                },
+                "withGrantOption": {
+                    "type": "boolean",
+                    "description": "Permit the grant recipient to grant it to others",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "database",
+                "objectType",
+                "privileges",
+                "role"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Grant resources.\n",
+                "properties": {
+                    "columns": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "The specific columns to grant privileges on for this role",
+                        "willReplaceOnChanges": true
+                    },
+                    "database": {
+                        "type": "string",
+                        "description": "The database to grant privileges on for this role",
+                        "willReplaceOnChanges": true
+                    },
+                    "objectType": {
+                        "type": "string",
+                        "description": "The CockroachSQL object type to grant the privileges on (one of: database, function, procedure, routine, schema, sequence, table, foreign_data_wrapper, foreign_server, column)",
+                        "willReplaceOnChanges": true
+                    },
+                    "objects": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "The specific objects to grant privileges on for this role (empty means all objects of the requested type)",
+                        "willReplaceOnChanges": true
+                    },
+                    "privileges": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "The list of privileges to grant"
+                    },
+                    "role": {
+                        "type": "string",
+                        "description": "The name of the role to grant privileges on",
+                        "willReplaceOnChanges": true
+                    },
+                    "schema": {
+                        "type": "string",
+                        "description": "The database schema to grant privileges on for this role",
+                        "willReplaceOnChanges": true
+                    },
+                    "withGrantOption": {
+                        "type": "boolean",
+                        "description": "Permit the grant recipient to grant it to others",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "cockroachsql:index/grantRole:GrantRole": {
+            "properties": {
+                "grantRole": {
+                    "type": "string",
+                    "description": "The name of the role that is granted to role",
+                    "language": {
+                        "csharp": {
+                            "name": "GrantRoleName"
+                        }
+                    }
+                },
+                "role": {
+                    "type": "string",
+                    "description": "The name of the role to grant grant_role"
+                },
+                "withAdminOption": {
+                    "type": "boolean",
+                    "description": "Permit the grant recipient to grant it to others"
+                }
+            },
+            "required": [
+                "grantRole",
+                "role"
+            ],
+            "inputProperties": {
+                "grantRole": {
+                    "type": "string",
+                    "description": "The name of the role that is granted to role",
+                    "language": {
+                        "csharp": {
+                            "name": "GrantRoleName"
+                        }
+                    },
+                    "willReplaceOnChanges": true
+                },
+                "role": {
+                    "type": "string",
+                    "description": "The name of the role to grant grant_role",
+                    "willReplaceOnChanges": true
+                },
+                "withAdminOption": {
+                    "type": "boolean",
+                    "description": "Permit the grant recipient to grant it to others",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "grantRole",
+                "role"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering GrantRole resources.\n",
+                "properties": {
+                    "grantRole": {
+                        "type": "string",
+                        "description": "The name of the role that is granted to role",
+                        "language": {
+                            "csharp": {
+                                "name": "GrantRoleName"
+                            }
+                        },
+                        "willReplaceOnChanges": true
+                    },
+                    "role": {
+                        "type": "string",
+                        "description": "The name of the role to grant grant_role",
+                        "willReplaceOnChanges": true
+                    },
+                    "withAdminOption": {
+                        "type": "boolean",
+                        "description": "Permit the grant recipient to grant it to others",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "cockroachsql:index/role:Role": {
+            "properties": {
+                "createRole": {
+                    "type": "boolean",
+                    "description": "Determine whether this role will be permitted to create new roles"
+                },
+                "encrypted": {
+                    "type": "string",
+                    "deprecationMessage": "Rename CockroachSQL role resource attribute \"encrypted\""
+                },
+                "idleInTransactionSessionTimeout": {
+                    "type": "integer",
+                    "description": "Terminate any session with an open transaction that has been idle for longer than the specified duration in milliseconds"
+                },
+                "login": {
+                    "type": "boolean",
+                    "description": "Determine whether a role is allowed to log in"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the role"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "Sets the role's password",
+                    "secret": true
+                },
+                "passwordWo": {
+                    "type": "string",
+                    "description": "**NOTE:** This field is write-only and its value will not be updated in state as part of read operations.\nSets the role's password without storing it in the state file.",
+                    "secret": true
+                },
+                "passwordWoVersion": {
+                    "type": "string",
+                    "description": "Prevents applies from updating the role password on every apply unless the value changes."
+                },
+                "roles": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Role(s) to grant to this new role"
+                },
+                "searchPaths": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Sets the role's search path"
+                },
+                "skipDropRole": {
+                    "type": "boolean",
+                    "description": "Skip actually running the DROP ROLE command when removing a ROLE from CockroachSQL"
+                },
+                "skipReassignOwned": {
+                    "type": "boolean",
+                    "description": "Skip actually running the REASSIGN OWNED command when removing a role from CockroachSQL"
+                },
+                "statementTimeout": {
+                    "type": "integer",
+                    "description": "Abort any statement that takes more than the specified number of milliseconds"
+                },
+                "validUntil": {
+                    "type": "string",
+                    "description": "Sets a date and time after which the role's password is no longer valid"
+                }
+            },
+            "required": [
+                "name"
+            ],
+            "inputProperties": {
+                "createRole": {
+                    "type": "boolean",
+                    "description": "Determine whether this role will be permitted to create new roles"
+                },
+                "encrypted": {
+                    "type": "string",
+                    "deprecationMessage": "Rename CockroachSQL role resource attribute \"encrypted\""
+                },
+                "idleInTransactionSessionTimeout": {
+                    "type": "integer",
+                    "description": "Terminate any session with an open transaction that has been idle for longer than the specified duration in milliseconds"
+                },
+                "login": {
+                    "type": "boolean",
+                    "description": "Determine whether a role is allowed to log in"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the role",
+                    "willReplaceOnChanges": true
+                },
+                "password": {
+                    "type": "string",
+                    "description": "Sets the role's password",
+                    "secret": true
+                },
+                "passwordWo": {
+                    "type": "string",
+                    "description": "**NOTE:** This field is write-only and its value will not be updated in state as part of read operations.\nSets the role's password without storing it in the state file.",
+                    "secret": true
+                },
+                "passwordWoVersion": {
+                    "type": "string",
+                    "description": "Prevents applies from updating the role password on every apply unless the value changes."
+                },
+                "roles": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Role(s) to grant to this new role"
+                },
+                "searchPaths": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Sets the role's search path"
+                },
+                "skipDropRole": {
+                    "type": "boolean",
+                    "description": "Skip actually running the DROP ROLE command when removing a ROLE from CockroachSQL"
+                },
+                "skipReassignOwned": {
+                    "type": "boolean",
+                    "description": "Skip actually running the REASSIGN OWNED command when removing a role from CockroachSQL"
+                },
+                "statementTimeout": {
+                    "type": "integer",
+                    "description": "Abort any statement that takes more than the specified number of milliseconds"
+                },
+                "validUntil": {
+                    "type": "string",
+                    "description": "Sets a date and time after which the role's password is no longer valid"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Role resources.\n",
+                "properties": {
+                    "createRole": {
+                        "type": "boolean",
+                        "description": "Determine whether this role will be permitted to create new roles"
+                    },
+                    "encrypted": {
+                        "type": "string",
+                        "deprecationMessage": "Rename CockroachSQL role resource attribute \"encrypted\""
+                    },
+                    "idleInTransactionSessionTimeout": {
+                        "type": "integer",
+                        "description": "Terminate any session with an open transaction that has been idle for longer than the specified duration in milliseconds"
+                    },
+                    "login": {
+                        "type": "boolean",
+                        "description": "Determine whether a role is allowed to log in"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the role",
+                        "willReplaceOnChanges": true
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "Sets the role's password",
+                        "secret": true
+                    },
+                    "passwordWo": {
+                        "type": "string",
+                        "description": "**NOTE:** This field is write-only and its value will not be updated in state as part of read operations.\nSets the role's password without storing it in the state file.",
+                        "secret": true
+                    },
+                    "passwordWoVersion": {
+                        "type": "string",
+                        "description": "Prevents applies from updating the role password on every apply unless the value changes."
+                    },
+                    "roles": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Role(s) to grant to this new role"
+                    },
+                    "searchPaths": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Sets the role's search path"
+                    },
+                    "skipDropRole": {
+                        "type": "boolean",
+                        "description": "Skip actually running the DROP ROLE command when removing a ROLE from CockroachSQL"
+                    },
+                    "skipReassignOwned": {
+                        "type": "boolean",
+                        "description": "Skip actually running the REASSIGN OWNED command when removing a role from CockroachSQL"
+                    },
+                    "statementTimeout": {
+                        "type": "integer",
+                        "description": "Abort any statement that takes more than the specified number of milliseconds"
+                    },
+                    "validUntil": {
+                        "type": "string",
+                        "description": "Sets a date and time after which the role's password is no longer valid"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "cockroachsql:index/schema:Schema": {
+            "properties": {
+                "database": {
+                    "type": "string",
+                    "description": "The database name to alter schema"
+                },
+                "dropCascade": {
+                    "type": "boolean",
+                    "description": "When true, will also drop all the objects that are contained in the schema"
+                },
+                "ifNotExists": {
+                    "type": "boolean",
+                    "description": "When true, use the existing schema if it exists"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the schema"
+                },
+                "owner": {
+                    "type": "string",
+                    "description": "The ROLE name who owns the schema"
+                }
+            },
+            "required": [
+                "database",
+                "name",
+                "owner"
+            ],
+            "inputProperties": {
+                "database": {
+                    "type": "string",
+                    "description": "The database name to alter schema",
+                    "willReplaceOnChanges": true
+                },
+                "dropCascade": {
+                    "type": "boolean",
+                    "description": "When true, will also drop all the objects that are contained in the schema"
+                },
+                "ifNotExists": {
+                    "type": "boolean",
+                    "description": "When true, use the existing schema if it exists"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the schema"
+                },
+                "owner": {
+                    "type": "string",
+                    "description": "The ROLE name who owns the schema"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Schema resources.\n",
+                "properties": {
+                    "database": {
+                        "type": "string",
+                        "description": "The database name to alter schema",
+                        "willReplaceOnChanges": true
+                    },
+                    "dropCascade": {
+                        "type": "boolean",
+                        "description": "When true, will also drop all the objects that are contained in the schema"
+                    },
+                    "ifNotExists": {
+                        "type": "boolean",
+                        "description": "When true, use the existing schema if it exists"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the schema"
+                    },
+                    "owner": {
+                        "type": "string",
+                        "description": "The ROLE name who owns the schema"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "functions": {
+        "cockroachsql:index/getSchemas:getSchemas": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getSchemas.\n",
+                "properties": {
+                    "database": {
+                        "type": "string",
+                        "willReplaceOnChanges": true
+                    },
+                    "includeSystemSchemas": {
+                        "type": "boolean"
+                    },
+                    "likeAllPatterns": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "likeAnyPatterns": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "notLikeAllPatterns": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "regexPattern": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "database"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getSchemas.\n",
+                "properties": {
+                    "database": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "description": "The provider-assigned unique ID for this managed resource.",
+                        "type": "string"
+                    },
+                    "includeSystemSchemas": {
+                        "type": "boolean"
+                    },
+                    "likeAllPatterns": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "likeAnyPatterns": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "notLikeAllPatterns": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "regexPattern": {
+                        "type": "string"
+                    },
+                    "schemas": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "database",
+                    "schemas",
+                    "id"
+                ],
+                "type": "object"
+            }
+        },
+        "cockroachsql:index/getSequences:getSequences": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getSequences.\n",
+                "properties": {
+                    "database": {
+                        "type": "string",
+                        "willReplaceOnChanges": true
+                    },
+                    "likeAllPatterns": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "likeAnyPatterns": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "notLikeAllPatterns": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "regexPattern": {
+                        "type": "string"
+                    },
+                    "schemas": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "database"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getSequences.\n",
+                "properties": {
+                    "database": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "description": "The provider-assigned unique ID for this managed resource.",
+                        "type": "string"
+                    },
+                    "likeAllPatterns": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "likeAnyPatterns": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "notLikeAllPatterns": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "regexPattern": {
+                        "type": "string"
+                    },
+                    "schemas": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "sequences": {
+                        "items": {
+                            "$ref": "#/types/cockroachsql:index/getSequencesSequence:getSequencesSequence"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "database",
+                    "sequences",
+                    "id"
+                ],
+                "type": "object"
+            }
+        },
+        "cockroachsql:index/getTables:getTables": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getTables.\n",
+                "properties": {
+                    "database": {
+                        "type": "string",
+                        "willReplaceOnChanges": true
+                    },
+                    "likeAllPatterns": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "likeAnyPatterns": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "notLikeAllPatterns": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "regexPattern": {
+                        "type": "string"
+                    },
+                    "schemas": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "tableTypes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "database"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getTables.\n",
+                "properties": {
+                    "database": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "description": "The provider-assigned unique ID for this managed resource.",
+                        "type": "string"
+                    },
+                    "likeAllPatterns": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "likeAnyPatterns": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "notLikeAllPatterns": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "regexPattern": {
+                        "type": "string"
+                    },
+                    "schemas": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "tableTypes": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "tables": {
+                        "items": {
+                            "$ref": "#/types/cockroachsql:index/getTablesTable:getTablesTable"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "database",
+                    "tables",
+                    "id"
+                ],
+                "type": "object"
+            }
+        },
+        "pulumi:providers:cockroachsql/terraformConfig": {
+            "description": "This function returns a Terraform config object with terraform-namecased keys,to be used with the Terraform Module Provider.",
+            "inputs": {
+                "properties": {
+                    "__self__": {
+                        "type": "ref",
+                        "$ref": "#/provider"
+                    }
+                },
+                "type": "pulumi:providers:cockroachsql/terraformConfig",
+                "required": [
+                    "__self__"
+                ]
+            },
+            "outputs": {
+                "properties": {
+                    "result": {
+                        "additionalProperties": {
+                            "$ref": "pulumi.json#/Any"
+                        },
+                        "type": "object"
+                    }
+                },
+                "required": [
+                    "result"
+                ],
+                "type": "object"
+            }
+        }
+    }
+}

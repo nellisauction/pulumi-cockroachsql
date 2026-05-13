@@ -1,0 +1,32 @@
+{
+    "name": "@nellisauction/pulumi-cockroachsql",
+    "version": "0.0.0",
+    "description": "A Pulumi package for creating and managing CockroachSQL resources.",
+    "keywords": [
+        "pulumi",
+        "cockroachsql",
+        "category/database"
+    ],
+    "homepage": "https://github.com/nellisauction/pulumi-cockroachsql",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nellisauction/pulumi-cockroachsql.git"
+    },
+    "license": "Apache-2.0",
+    "scripts": {
+        "build": "tsc"
+    },
+    "dependencies": {
+        "@pulumi/pulumi": "^3.142.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20",
+        "typescript": "^4.7.0"
+    },
+    "pulumi": {
+        "resource": true,
+        "name": "cockroachsql",
+        "version": "0.0.0",
+        "server": "github://api.github.com/nellisauction/pulumi-cockroachsql"
+    }
+}
