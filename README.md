@@ -1,6 +1,6 @@
 # CockroachSQL Resource Provider
 
-The Cockroachsql Resource Provider lets you manage [Cockroachsql](http://example.com) resources.
+The CockroachSQL Resource Provider lets you manage [CockroachSQL](http://example.com) resources.
 
 ## Installing
 
