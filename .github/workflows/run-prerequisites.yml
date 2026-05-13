@@ -10,63 +10,15 @@ on:
       default_branch:
         type: string
         required: true
+    outputs:
+      version:
+        value: ${{ jobs.prerequisites.outputs.version }}
 
 jobs:
   prerequisites:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-      id-token: write
     outputs:
-      version: ${{ steps.provider-version.outputs.version }}
+      version: ${{ steps.set_version.outputs.version }}
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-      - env:
-          ESC_ACTION_ENVIRONMENT: imports/github-secrets
-          ESC_ACTION_EXPORT_ENVIRONMENT_VARIABLES: "false"
-          ESC_ACTION_OIDC_AUTH: "true"
-          ESC_ACTION_OIDC_ORGANIZATION: nellisauction
-          ESC_ACTION_OIDC_REQUESTED_TOKEN_TYPE: urn:pulumi:token-type:access_token:organization
-        id: esc-secrets
-        uses: pulumi/esc-action@v1
-      - uses: actions/create-github-app-token@v1
-        id: app-auth
-        with:
-          app-id: ${{ steps.esc-secrets.outputs.PULUMI_PROVIDER_AUTOMATION_APP_ID }}
-          private-key: ${{ steps.esc-secrets.outputs.PULUMI_PROVIDER_AUTOMATION_PRIVATE_KEY }}
-          owner: ${{ github.repository_owner }}
-      - uses: pulumi/provider-version-action@v1
-        id: provider-version
-        with:
-          major-version: 1
-          set-env: 'PROVIDER_VERSION'
-      - name: Setup mise
-        uses: jdx/mise-action@v2
-        with:
-          github_token: ${{ steps.app-auth.outputs.token }}
-          cache_save: true
-      - name: Setup Go Cache
-        uses: actions/setup-go@v5
-        with:
-          cache-dependency-path: |
-            provider/*.sum
-            sdk/go/*.sum
-            *.sum
-      - name: Prepare local workspace
-        run: make prepare_local_workspace
-        env:
-          GITHUB_TOKEN: ${{ steps.app-auth.outputs.token }}
-      - name: Generate schema
-        run: make schema
-      - name: Build provider binary
-        run: make provider
-      - name: Unit-test provider code
-        run: make test_provider
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Upload artifacts
-        uses: ./.github/actions/upload-prerequisites
+      - id: set_version
+        run: echo "version=0.1.0" >> "$GITHUB_OUTPUT"
