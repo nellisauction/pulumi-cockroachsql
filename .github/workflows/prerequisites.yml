@@ -24,12 +24,6 @@ jobs:
       id-token: write
     outputs:
       version: ${{ steps.provider-version.outputs.version }}
-    env:
-      PULUMI_API: https://api.pulumi-staging.io
-      PULUMI_GO_DEP_ROOT: ${{ github.workspace }}/..
-      PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
-      PULUMI_PULUMI_ENABLE_JOURNALING: "true"
-      TF_APPEND_USER_AGENT: pulumi
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -42,7 +36,6 @@ jobs:
           ESC_ACTION_OIDC_ORGANIZATION: nellisauction
           ESC_ACTION_OIDC_REQUESTED_TOKEN_TYPE: urn:pulumi:token-type:access_token:organization
         id: esc-secrets
-        name: Fetch secrets from ESC
         uses: pulumi/esc-action@v1
       - uses: actions/create-github-app-token@v1
         id: app-auth
@@ -55,12 +48,6 @@ jobs:
         with:
           major-version: 1
           set-env: 'PROVIDER_VERSION'
-      - name: Cache examples generation
-        uses: actions/cache@v4
-        with:
-          path: |
-            .pulumi/examples-cache
-          key: ${{ runner.os }}-${{ hashFiles('provider/go.sum') }}
       - name: Setup mise
         uses: jdx/mise-action@v2
         with:
