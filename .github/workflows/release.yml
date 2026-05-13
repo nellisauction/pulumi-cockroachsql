@@ -8,6 +8,7 @@ env:
   PULUMI_API: https://api.pulumi.com
   TF_APPEND_USER_AGENT: pulumi
   MISE_PYTHON_GITHUB_ATTESTATIONS: "false"
+  SKIP_SIGNING: "true"
 
 jobs:
   release:
