@@ -12,9 +12,6 @@ jobs:
     secrets: inherit
 
   build_sdk:
-    strategy:
-      matrix:
-        language: [nodejs, python, dotnet, go]
     uses: ./.github/workflows/build_sdk.yml
     with:
       version: ${{ github.ref_name }}
@@ -76,11 +73,11 @@ jobs:
             tar -xzf "$f" -C "pkg-$lang"
             
             if [ "$lang" == "nodejs" ]; then
-              cloudsmith push npm nellisauction/pulumi-cockroachsql "pkg-$lang/bin/"*.tgz
+              cloudsmith push npm nellisauction/pulumi-cockroachsql pkg-$lang/bin/*.tgz
             elif [ "$lang" == "python" ]; then
-              cloudsmith push python nellisauction/pulumi-cockroachsql "pkg-$lang/bin/dist/"*.whl
-              cloudsmith push python nellisauction/pulumi-cockroachsql "pkg-$lang/bin/dist/"*.tar.gz
+              cloudsmith push python nellisauction/pulumi-cockroachsql pkg-$lang/bin/dist/*.whl
+              cloudsmith push python nellisauction/pulumi-cockroachsql pkg-$lang/bin/dist/*.tar.gz
             elif [ "$lang" == "dotnet" ]; then
-              cloudsmith push nuget nellisauction/pulumi-cockroachsql "pkg-$lang/bin/"*.nupkg
+              cloudsmith push nuget nellisauction/pulumi-cockroachsql pkg-$lang/bin/*.nupkg
             fi
           done
