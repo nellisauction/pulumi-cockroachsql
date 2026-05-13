@@ -4,65 +4,83 @@ on:
     tags:
     - v*.*.*
 
-env:
-  PULUMI_API: https://api.pulumi-staging.io
-  PULUMI_GO_DEP_ROOT: ${{ github.workspace }}/..
-  PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
-  PULUMI_PULUMI_ENABLE_JOURNALING: "true"
-  TF_APPEND_USER_AGENT: pulumi
-
 jobs:
-  prerequisites:
-    uses: ./.github/workflows/prerequisites.yml
-    with:
-      default_branch: ${{ github.event.repository.default_branch }}
-      is_pr: ${{ github.event_name == 'pull_request' }}
-      is_automated: ${{ github.actor == 'dependabot[bot]' }}
-    secrets: inherit
-
   build_provider:
     uses: ./.github/workflows/build_provider.yml
-    needs: prerequisites
     with:
-      version: ${{ needs.prerequisites.outputs.version }}
+      version: ${{ github.ref_name }}
     secrets: inherit
 
   build_sdk:
-    name: build_sdk
-    needs: prerequisites
+    strategy:
+      matrix:
+        language: [nodejs, python, dotnet, go]
     uses: ./.github/workflows/build_sdk.yml
     with:
-      version: ${{ needs.prerequisites.outputs.version }}
-    secrets: inherit
-
-  lint:
-    name: lint
-    uses: ./.github/workflows/lint.yml
-    secrets: inherit
-  license_check:
-    name: License Check
-    uses: ./.github/workflows/license.yml
+      version: ${{ github.ref_name }}
     secrets: inherit
 
   publish:
-    name: publish
-    needs:
-      - prerequisites
-      - build_provider
-      - build_sdk
-    uses: ./.github/workflows/publish.yml
-    with:
-      version: ${{ needs.prerequisites.outputs.version }}
-      isPrerelease: false
-      setLatestRelease: true
-    secrets: inherit
+    needs: [build_provider, build_sdk]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
-  test:
-    uses: ./.github/workflows/test.yml
-    needs:
-      - prerequisites
-      - build_provider
-      - build_sdk
-    with:
-      version: ${{ needs.prerequisites.outputs.version }}
-    secrets: inherit
+      - name: Create dist directory
+        run: mkdir -p dist
+
+      - name: Download provider assets
+        uses: actions/download-artifact@v4
+        with:
+          pattern: pulumi-resource-cockroachsql-v${{ github.ref_name }}-*
+          path: dist
+          merge-multiple: true
+
+      - name: Calculate checksums
+        working-directory: dist
+        run: shasum ./*.tar.gz > "pulumi-cockroachsql_${{ github.ref_name }}_checksums.txt"
+
+      - name: Create GH Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref }}
+          generate_release_notes: true
+          files: dist/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Authenticate with Cloudsmith
+        uses: cloudsmith-io/cloudsmith-cli-action@v2
+        with:
+          oidc-namespace: 'nellisauction'
+          oidc-service-slug: 'github-actions'
+
+      - name: Download SDKs
+        uses: actions/download-artifact@v4
+        with:
+          pattern: "*-sdk.tar.gz"
+          path: sdks-tar
+          merge-multiple: true
+
+      - name: Push SDKs to Cloudsmith
+        run: |
+          for f in sdks-tar/*.tar.gz; do
+            lang=$(basename $f -sdk.tar.gz)
+            mkdir -p "pkg-$lang"
+            tar -xzf "$f" -C "pkg-$lang"
+            
+            if [ "$lang" == "nodejs" ]; then
+              cloudsmith push npm nellisauction/pulumi-cockroachsql "pkg-$lang/bin/"*.tgz
+            elif [ "$lang" == "python" ]; then
+              cloudsmith push python nellisauction/pulumi-cockroachsql "pkg-$lang/bin/dist/"*.whl
+              cloudsmith push python nellisauction/pulumi-cockroachsql "pkg-$lang/bin/dist/"*.tar.gz
+            elif [ "$lang" == "dotnet" ]; then
+              cloudsmith push nuget nellisauction/pulumi-cockroachsql "pkg-$lang/bin/"*.nupkg
+            fi
+          done
