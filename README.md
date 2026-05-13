@@ -1,14 +1,6 @@
-# Terraform Bridge Provider Boilerplate
+# CockroachSQL Resource Provider
 
-This repository is the template for authoring a Pulumi package from an existing Terraform provider as part of the guide for [authoring and publishing Pulumi packages](https://www.pulumi.com/docs/iac/packages-and-automation/pulumi-packages/authoring/).
-
-This repository is initially set up as a fictitious provider named "cockroachsql" to demonstrate a resource, a data source and configuration derived from the [github.com/nellisauction/terraform-provider-cockroachsql provider](https://github.com/nellisauction/terraform-provider-cockroachsql).
-
-Read the [setup instructions](SETUP.md) for step-by-step instructions on how to bridge a new provider and refer to our complete docs [guide for authoring and publishing a Pulumi Package](https://www.pulumi.com/docs/iac/packages-and-automation/pulumi-packages/authoring/).
-
-# Cockroachsql Resource Provider
-
-The Cockroachsql Resource Provider lets you manage [Cockroachsql](http://example.com) resources.
+The CockroachSQL Resource Provider lets you manage [CockroachSQL](http://example.com) resources.
 
 ## Installing
 
