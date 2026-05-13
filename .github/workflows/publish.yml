@@ -32,19 +32,19 @@ jobs:
       contents: write
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      uses: actions/checkout@v4
       with:
         persist-credentials: false    
     - name: Create dist directory
       run: mkdir -p dist
     - name: Download provider assets
-      uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      uses: actions/download-artifact@v4
       with:
         pattern: pulumi-resource-cockroachsql-v${{ inputs.version }}-*
         path: dist
         merge-multiple: true
     - name: Download schema
-      uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+      uses: actions/download-artifact@v4
       with:
         pattern: schema-embed.*
         merge-multiple: true
@@ -73,7 +73,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@v4
       
       - name: Authenticate with Cloudsmith
         uses: cloudsmith-io/cloudsmith-cli-action@v2
@@ -82,19 +82,19 @@ jobs:
           oidc-service-slug: 'github-actions'
       
       - name: Download Node.js SDK
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        uses: actions/download-artifact@v4
         with:
           name: nodejs-sdk.tar.gz
           path: sdk-nodejs
       
       - name: Download Python SDK
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        uses: actions/download-artifact@v4
         with:
           name: python-sdk.tar.gz
           path: sdk-python
           
       - name: Download Dotnet SDK
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        uses: actions/download-artifact@v4
         with:
           name: dotnet-sdk.tar.gz
           path: sdk-dotnet
