@@ -164,9 +164,9 @@ build_nodejs: .make/build_nodejs
 	@touch $@
 .make/build_nodejs: .make/generate_nodejs
 	cd sdk/nodejs/ && \
-		yarn install && \
-		yarn run tsc && \
-		cp ../../README.md ../../LICENSE package.json yarn.lock ./bin/ && \
+		npm install && \
+		npm run build && \
+		cp ../../README.md ../../LICENSE package.json package-lock.json ./bin/ && \
 		cd bin && npm pack
 	@touch $@
 .PHONY: generate_nodejs build_nodejs
@@ -212,7 +212,7 @@ install_go_sdk:
 install_java_sdk:
 install_nodejs_sdk: .make/install_nodejs_sdk
 .make/install_nodejs_sdk: .make/build_nodejs
-	yarn link --cwd $(WORKING_DIR)/sdk/nodejs/bin
+	npm link --prefix $(WORKING_DIR)/sdk/nodejs/bin
 	@touch $@
 install_python_sdk:
 .PHONY: install_dotnet_sdk install_go_sdk install_java_sdk install_nodejs_sdk install_python_sdk
