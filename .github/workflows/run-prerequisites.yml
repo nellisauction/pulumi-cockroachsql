@@ -22,7 +22,7 @@ jobs:
       pull-requests: write
       id-token: write
     outputs:
-      version: ${{ steps.set_version.outputs.version }}
+      version: ${{ steps.provider-version.outputs.version }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -42,5 +42,8 @@ jobs:
           app-id: ${{ steps.esc-secrets.outputs.PULUMI_PROVIDER_AUTOMATION_APP_ID }}
           private-key: ${{ steps.esc-secrets.outputs.PULUMI_PROVIDER_AUTOMATION_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
-      - id: set_version
-        run: echo "version=0.1.0" >> "$GITHUB_OUTPUT"
+      - uses: pulumi/provider-version-action@v1
+        id: provider-version
+        with:
+          major-version: 1
+          set-env: 'PROVIDER_VERSION'
