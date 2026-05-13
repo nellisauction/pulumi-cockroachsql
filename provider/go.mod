@@ -5,12 +5,9 @@ go 1.25.9
 replace github.com/hashicorp/terraform-plugin-sdk/v2 => github.com/pulumi/terraform-plugin-sdk/v2 v2.0.0-20260318212141-5525259d096b
 
 require (
-	github.com/nellisauction/terraform-provider-cockroachsql v0.0.0-20260513045330-181bc3a749b3
-	github.com/pulumi/pulumi-terraform-bridge/v3 v3.129.2
-	github.com/pulumi/pulumi/sdk/v3 v3.237.0
+	github.com/nellisauction/terraform-provider-cockroachsql v0.0.0-20260513030652-181bc3a749b3
 )
 
-replace github.com/nellisauction/terraform-provider-cockroachsql => ../../terraform-provider-cockroachsql
 
 require (
 	cel.dev/expr v0.25.1 // indirect

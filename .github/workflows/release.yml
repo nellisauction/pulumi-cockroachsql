@@ -27,16 +27,11 @@ jobs:
 
       - name: Build and Package Provider
         run: |
-          ls -R
-          cd provider && \
-          sed -i '/replace github.com\/nellisauction\/terraform-provider-cockroachsql/d' go.mod && \
-          go mod tidy && \
-          cd ..
+          (cd provider && go mod tidy)
           make tfgen_build_only
           ./bin/pulumi-tfgen-cockroachsql schema --out provider/cmd/pulumi-resource-cockroachsql
           
           # Cross compile and Package for common platforms
-          # This uses the targets defined in scripts/crossbuild.mk
           make provider_dist-linux-amd64
           make provider_dist-linux-arm64
           make provider_dist-darwin-amd64
