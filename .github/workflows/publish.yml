@@ -13,6 +13,12 @@ on:
       isPrerelease:
         required: true
         type: boolean
+      skipGoSdk:
+        default: false
+        type: boolean
+      skipJavaSdk:
+        default: false
+        type: boolean
 
 env:
   IS_PRERELEASE: ${{ inputs.isPrerelease }}
