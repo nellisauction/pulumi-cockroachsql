@@ -27,6 +27,7 @@ jobs:
 
       - name: Build and Package Provider
         run: |
+          ls -R
           cd provider && \
           sed -i '/replace github.com\/nellisauction\/terraform-provider-cockroachsql/d' go.mod && \
           go mod tidy && \
