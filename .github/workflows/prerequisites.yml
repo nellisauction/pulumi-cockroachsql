@@ -11,11 +11,6 @@ on:
       default_branch:
         type: string
         required: true
-    outputs:
-      version:
-        description: "Provider version being built"
-        value: ${{ jobs.prerequisites.outputs.version }}
-
 env:
   PULUMI_API: https://api.pulumi-staging.io
   PULUMI_GO_DEP_ROOT: ${{ github.workspace }}/..
