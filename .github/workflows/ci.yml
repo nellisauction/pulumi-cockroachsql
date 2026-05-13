@@ -25,6 +25,12 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
       
+      - name: Install Mise
+        run: |
+          curl https://mise.jdx.dev/install.sh | sh
+          echo "$HOME/.local/share/mise/bin" >> $GITHUB_PATH
+          echo "$HOME/.local/share/mise/shims" >> $GITHUB_PATH
+
       - name: Build Provider
         run: |
           (cd provider && go mod tidy)
