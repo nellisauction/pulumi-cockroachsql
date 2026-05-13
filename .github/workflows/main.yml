@@ -6,7 +6,7 @@ on:
     - main
 
 jobs:
-  prerequisites:
+  run_prerequisites:
     uses: ./.github/workflows/prerequisites.yml
     with:
       default_branch: main
