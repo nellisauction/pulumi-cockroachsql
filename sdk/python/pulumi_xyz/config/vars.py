@@ -17,7 +17,7 @@ from .. import region
 
 import types
 
-__config__ = pulumi.Config('xyz')
+__config__ = pulumi.Config('cockroachsql')
 
 
 class _ExportableConfig(types.ModuleType):

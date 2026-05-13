@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Immutable;
 
-namespace Pulumi.Xyz
+namespace Pulumi.CockroachSql
 {
     public static class Config
     {
@@ -30,17 +30,173 @@ namespace Pulumi.Xyz
             }
         }
 
-        private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("xyz");
+        private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("cockroachsql");
 
-        private static readonly __Value<Pulumi.Xyz.Region.Region?> _region = new __Value<Pulumi.Xyz.Region.Region?>(() => __config.GetObject<Pulumi.Xyz.Region.Region>("region"));
+        private static readonly __Value<Pulumi.CockroachSql.Config.Types.Clientcert?> _clientcert = new __Value<Pulumi.CockroachSql.Config.Types.Clientcert?>(() => __config.GetObject<Pulumi.CockroachSql.Config.Types.Clientcert>("clientcert"));
         /// <summary>
-        /// A region which should be used.
+        /// SSL client certificate if required by the database.
         /// </summary>
-        public static Pulumi.Xyz.Region.Region? Region
+        public static Pulumi.CockroachSql.Config.Types.Clientcert? Clientcert
         {
-            get => _region.Get();
-            set => _region.Set(value);
+            get => _clientcert.Get();
+            set => _clientcert.Set(value);
         }
 
+        private static readonly __Value<int?> _connectTimeout = new __Value<int?>(() => __config.GetInt32("connectTimeout") ?? Utilities.GetEnvInt32("PGCONNECT_TIMEOUT") ?? 180);
+        /// <summary>
+        /// Maximum wait for connection, in seconds. Zero or not specified means wait indefinitely.
+        /// </summary>
+        public static int? ConnectTimeout
+        {
+            get => _connectTimeout.Get();
+            set => _connectTimeout.Set(value);
+        }
+
+        private static readonly __Value<string?> _database = new __Value<string?>(() => __config.Get("database"));
+        /// <summary>
+        /// The name of the database to connect to (defaults to `Defaultdb`).
+        /// </summary>
+        public static string? Database
+        {
+            get => _database.Get();
+            set => _database.Set(value);
+        }
+
+        private static readonly __Value<string?> _databaseUsername = new __Value<string?>(() => __config.Get("databaseUsername"));
+        /// <summary>
+        /// Database username associated to the connected user (for user name maps)
+        /// </summary>
+        public static string? DatabaseUsername
+        {
+            get => _databaseUsername.Get();
+            set => _databaseUsername.Set(value);
+        }
+
+        private static readonly __Value<string?> _expectedVersion = new __Value<string?>(() => __config.Get("expectedVersion"));
+        /// <summary>
+        /// Specify the expected version of CockroachDB.
+        /// </summary>
+        public static string? ExpectedVersion
+        {
+            get => _expectedVersion.Get();
+            set => _expectedVersion.Set(value);
+        }
+
+        private static readonly __Value<string?> _host = new __Value<string?>(() => __config.Get("host"));
+        /// <summary>
+        /// Name of CockroachDB server address to connect to
+        /// </summary>
+        public static string? Host
+        {
+            get => _host.Get();
+            set => _host.Set(value);
+        }
+
+        private static readonly __Value<int?> _maxConnections = new __Value<int?>(() => __config.GetInt32("maxConnections"));
+        /// <summary>
+        /// Maximum number of connections to establish to the database. Zero means unlimited.
+        /// </summary>
+        public static int? MaxConnections
+        {
+            get => _maxConnections.Get();
+            set => _maxConnections.Set(value);
+        }
+
+        private static readonly __Value<string?> _password = new __Value<string?>(() => __config.Get("password"));
+        /// <summary>
+        /// Password to be used if the CockroachDB server demands password authentication
+        /// </summary>
+        public static string? Password
+        {
+            get => _password.Get();
+            set => _password.Set(value);
+        }
+
+        private static readonly __Value<int?> _port = new __Value<int?>(() => __config.GetInt32("port"));
+        /// <summary>
+        /// The CockroachDB port number to connect to at the server host
+        /// </summary>
+        public static int? Port
+        {
+            get => _port.Get();
+            set => _port.Set(value);
+        }
+
+        private static readonly __Value<string?> _sslMode = new __Value<string?>(() => __config.Get("sslMode"));
+        public static string? SslMode
+        {
+            get => _sslMode.Get();
+            set => _sslMode.Set(value);
+        }
+
+        private static readonly __Value<string?> _sslmode = new __Value<string?>(() => __config.Get("sslmode") ?? Utilities.GetEnv("PGSSLMODE"));
+        /// <summary>
+        /// This option determines whether or with what priority a secure SSL TCP/IP connection will be negotiated with the CockroachDB server
+        /// </summary>
+        public static string? Sslmode
+        {
+            get => _sslmode.Get();
+            set => _sslmode.Set(value);
+        }
+
+        private static readonly __Value<string?> _sslrootcert = new __Value<string?>(() => __config.Get("sslrootcert"));
+        /// <summary>
+        /// The SSL server root certificate file path. The file must contain PEM encoded data.
+        /// </summary>
+        public static string? Sslrootcert
+        {
+            get => _sslrootcert.Get();
+            set => _sslrootcert.Set(value);
+        }
+
+        private static readonly __Value<bool?> _superuser = new __Value<bool?>(() => __config.GetBoolean("superuser"));
+        /// <summary>
+        /// Specify if the user to connect as is a CockroachDB superuser or not.
+        /// </summary>
+        public static bool? Superuser
+        {
+            get => _superuser.Get();
+            set => _superuser.Set(value);
+        }
+
+        private static readonly __Value<string?> _url = new __Value<string?>(() => __config.Get("url"));
+        /// <summary>
+        /// Connection URL for CockroachDB. If set, this overrides other connection parameters.
+        /// </summary>
+        public static string? Url
+        {
+            get => _url.Get();
+            set => _url.Set(value);
+        }
+
+        private static readonly __Value<string?> _username = new __Value<string?>(() => __config.Get("username"));
+        /// <summary>
+        /// CockroachDB user name to connect as
+        /// </summary>
+        public static string? Username
+        {
+            get => _username.Get();
+            set => _username.Set(value);
+        }
+
+        public static class Types
+        {
+
+             public class Clientcert
+             {
+            /// <summary>
+            /// The SSL client certificate file path. The file must contain PEM encoded data.
+            /// </summary>
+                public string Cert { get; set; }
+            /// <summary>
+            /// The SSL client certificate private key file path. The file must contain PEM encoded data.
+            /// </summary>
+                public string Key { get; set; }
+            /// <summary>
+            /// Must be set to true if you are inlining the cert/key instead of using a file path.
+            /// </summary>
+                public bool? Sslinline { get; set; }
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-module github.com/pulumi/pulumi-xyz/sdk
+module github.com/nellisauction/pulumi-cockroachsql/sdk
 
 go 1.25.8
 

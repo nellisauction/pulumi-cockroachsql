@@ -1,0 +1,120 @@
+{
+    "auto-aliasing": {
+        "resources": {
+            "cockroachsql_database": {
+                "current": "cockroachsql:index/database:Database",
+                "majorVersion": 1
+            },
+            "cockroachsql_default_privileges": {
+                "current": "cockroachsql:index/defaultPrivileges:DefaultPrivileges",
+                "majorVersion": 1,
+                "fields": {
+                    "privileges": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "cockroachsql_grant": {
+                "current": "cockroachsql:index/grant:Grant",
+                "majorVersion": 1,
+                "fields": {
+                    "columns": {
+                        "maxItemsOne": false
+                    },
+                    "objects": {
+                        "maxItemsOne": false
+                    },
+                    "privileges": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "cockroachsql_grant_role": {
+                "current": "cockroachsql:index/grantRole:GrantRole",
+                "majorVersion": 1
+            },
+            "cockroachsql_role": {
+                "current": "cockroachsql:index/role:Role",
+                "majorVersion": 1,
+                "fields": {
+                    "roles": {
+                        "maxItemsOne": false
+                    },
+                    "search_path": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "cockroachsql_schema": {
+                "current": "cockroachsql:index/schema:Schema",
+                "majorVersion": 1
+            }
+        },
+        "datasources": {
+            "cockroachsql_schemas": {
+                "current": "cockroachsql:index/getSchemas:getSchemas",
+                "majorVersion": 1,
+                "fields": {
+                    "like_all_patterns": {
+                        "maxItemsOne": false
+                    },
+                    "like_any_patterns": {
+                        "maxItemsOne": false
+                    },
+                    "not_like_all_patterns": {
+                        "maxItemsOne": false
+                    },
+                    "schemas": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "cockroachsql_sequences": {
+                "current": "cockroachsql:index/getSequences:getSequences",
+                "majorVersion": 1,
+                "fields": {
+                    "like_all_patterns": {
+                        "maxItemsOne": false
+                    },
+                    "like_any_patterns": {
+                        "maxItemsOne": false
+                    },
+                    "not_like_all_patterns": {
+                        "maxItemsOne": false
+                    },
+                    "schemas": {
+                        "maxItemsOne": false
+                    },
+                    "sequences": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "cockroachsql_tables": {
+                "current": "cockroachsql:index/getTables:getTables",
+                "majorVersion": 1,
+                "fields": {
+                    "like_all_patterns": {
+                        "maxItemsOne": false
+                    },
+                    "like_any_patterns": {
+                        "maxItemsOne": false
+                    },
+                    "not_like_all_patterns": {
+                        "maxItemsOne": false
+                    },
+                    "schemas": {
+                        "maxItemsOne": false
+                    },
+                    "table_types": {
+                        "maxItemsOne": false
+                    },
+                    "tables": {
+                        "maxItemsOne": false
+                    }
+                }
+            }
+        }
+    },
+    "auto-settings": {}
+}

@@ -1,4 +1,4 @@
-module github.com/pulumi/pulumi-xyz/examples
+module github.com/nellisauction/pulumi-cockroachsql/examples
 
 go 1.25.8
 

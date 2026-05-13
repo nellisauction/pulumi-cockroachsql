@@ -12,23 +12,23 @@ from .resource import *
 
 # Make subpackages available:
 if typing.TYPE_CHECKING:
-    import pulumi_xyz.config as __config
+    import pulumi_cockroachsql.config as __config
     config = __config
-    import pulumi_xyz.region as __region
+    import pulumi_cockroachsql.region as __region
     region = __region
 else:
-    config = _utilities.lazy_import('pulumi_xyz.config')
-    region = _utilities.lazy_import('pulumi_xyz.region')
+    config = _utilities.lazy_import('pulumi_cockroachsql.config')
+    region = _utilities.lazy_import('pulumi_cockroachsql.region')
 
 _utilities.register(
     resource_modules="""
 [
  {
-  "pkg": "xyz",
+  "pkg": "cockroachsql",
   "mod": "index/resource",
-  "fqn": "pulumi_xyz",
+  "fqn": "pulumi_cockroachsql",
   "classes": {
-   "xyz:index/resource:Resource": "Resource"
+   "cockroachsql:index/resource:Resource": "Resource"
   }
  }
 ]
@@ -36,9 +36,9 @@ _utilities.register(
     resource_packages="""
 [
  {
-  "pkg": "xyz",
-  "token": "pulumi:providers:xyz",
-  "fqn": "pulumi_xyz",
+  "pkg": "cockroachsql",
+  "token": "pulumi:providers:cockroachsql",
+  "fqn": "pulumi_cockroachsql",
   "class": "Provider"
  }
 ]

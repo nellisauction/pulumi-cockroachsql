@@ -66,7 +66,7 @@ def get_data_source(sample_attribute: Optional[_builtins.str] = None,
     __args__ = dict()
     __args__['sampleAttribute'] = sample_attribute
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
-    __ret__ = pulumi.runtime.invoke('xyz:index/getDataSource:getDataSource', __args__, opts=opts, typ=GetDataSourceResult).value
+    __ret__ = pulumi.runtime.invoke('cockroachsql:index/getDataSource:getDataSource', __args__, opts=opts, typ=GetDataSourceResult).value
 
     return AwaitableGetDataSourceResult(
         id=pulumi.get(__ret__, 'id'),
@@ -79,7 +79,7 @@ def get_data_source_output(sample_attribute: pulumi.Input[Optional[_builtins.str
     __args__ = dict()
     __args__['sampleAttribute'] = sample_attribute
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
-    __ret__ = pulumi.runtime.invoke_output('xyz:index/getDataSource:getDataSource', __args__, opts=opts, typ=GetDataSourceResult)
+    __ret__ = pulumi.runtime.invoke_output('cockroachsql:index/getDataSource:getDataSource', __args__, opts=opts, typ=GetDataSourceResult)
     return __ret__.apply(lambda __response__: GetDataSourceResult(
         id=pulumi.get(__response__, 'id'),
         sample_attribute=pulumi.get(__response__, 'sample_attribute')))

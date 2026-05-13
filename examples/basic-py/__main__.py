@@ -13,6 +13,6 @@
 # limitations under the License.
 
 import pulumi
-import pulumi_xyz
+import pulumi_cockroachsql
 
-resource = pulumi_xyz.Resource("Resource", sample_attribute = "attr")
+resource = pulumi_cockroachsql.Resource("Resource", sample_attribute = "attr")

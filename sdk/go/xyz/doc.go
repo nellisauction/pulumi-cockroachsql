@@ -1,2 +1,2 @@
-// A Pulumi package for creating and managing xyz cloud resources.
-package xyz
+// A Pulumi package for creating and managing cockroachsql cloud resources.
+package cockroachsql

@@ -4,7 +4,7 @@
 package config
 
 import (
-	"github.com/pulumi/pulumi-xyz/sdk/go/xyz/internal"
+	"github.com/nellisauction/pulumi-cockroachsql/sdk/go/cockroachsql/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
 )
@@ -13,5 +13,5 @@ var _ = internal.GetEnvOrDefault
 
 // A region which should be used.
 func GetRegion(ctx *pulumi.Context) string {
-	return config.Get(ctx, "xyz:region")
+	return config.Get(ctx, "cockroachsql:region")
 }

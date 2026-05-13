@@ -4,19 +4,169 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
-import * as enums from "../types/enums";
 import * as utilities from "../utilities";
 
 declare var exports: any;
-const __config = new pulumi.Config("xyz");
+const __config = new pulumi.Config("cockroachsql");
 
 /**
- * A region which should be used.
+ * SSL client certificate if required by the database.
  */
-export declare const region: enums.region.Region | undefined;
-Object.defineProperty(exports, "region", {
+export declare const clientcert: outputs.config.Clientcert | undefined;
+Object.defineProperty(exports, "clientcert", {
     get() {
-        return __config.getObject<enums.region.Region>("region");
+        return __config.getObject<outputs.config.Clientcert>("clientcert");
+    },
+    enumerable: true,
+});
+
+/**
+ * Maximum wait for connection, in seconds. Zero or not specified means wait indefinitely.
+ */
+export declare const connectTimeout: number;
+Object.defineProperty(exports, "connectTimeout", {
+    get() {
+        return __config.getObject<number>("connectTimeout") ?? (utilities.getEnvNumber("PGCONNECT_TIMEOUT") || 180);
+    },
+    enumerable: true,
+});
+
+/**
+ * The name of the database to connect to (defaults to `defaultdb`).
+ */
+export declare const database: string | undefined;
+Object.defineProperty(exports, "database", {
+    get() {
+        return __config.get("database");
+    },
+    enumerable: true,
+});
+
+/**
+ * Database username associated to the connected user (for user name maps)
+ */
+export declare const databaseUsername: string | undefined;
+Object.defineProperty(exports, "databaseUsername", {
+    get() {
+        return __config.get("databaseUsername");
+    },
+    enumerable: true,
+});
+
+/**
+ * Specify the expected version of CockroachDB.
+ */
+export declare const expectedVersion: string | undefined;
+Object.defineProperty(exports, "expectedVersion", {
+    get() {
+        return __config.get("expectedVersion");
+    },
+    enumerable: true,
+});
+
+/**
+ * Name of CockroachDB server address to connect to
+ */
+export declare const host: string | undefined;
+Object.defineProperty(exports, "host", {
+    get() {
+        return __config.get("host");
+    },
+    enumerable: true,
+});
+
+/**
+ * Maximum number of connections to establish to the database. Zero means unlimited.
+ */
+export declare const maxConnections: number | undefined;
+Object.defineProperty(exports, "maxConnections", {
+    get() {
+        return __config.getObject<number>("maxConnections");
+    },
+    enumerable: true,
+});
+
+/**
+ * Password to be used if the CockroachDB server demands password authentication
+ */
+export declare const password: string | undefined;
+Object.defineProperty(exports, "password", {
+    get() {
+        return __config.get("password");
+    },
+    enumerable: true,
+});
+
+/**
+ * The CockroachDB port number to connect to at the server host
+ */
+export declare const port: number | undefined;
+Object.defineProperty(exports, "port", {
+    get() {
+        return __config.getObject<number>("port");
+    },
+    enumerable: true,
+});
+
+export declare const sslMode: string | undefined;
+Object.defineProperty(exports, "sslMode", {
+    get() {
+        return __config.get("sslMode");
+    },
+    enumerable: true,
+});
+
+/**
+ * This option determines whether or with what priority a secure SSL TCP/IP connection will be negotiated with the CockroachDB server
+ */
+export declare const sslmode: string | undefined;
+Object.defineProperty(exports, "sslmode", {
+    get() {
+        return __config.get("sslmode") ?? utilities.getEnv("PGSSLMODE");
+    },
+    enumerable: true,
+});
+
+/**
+ * The SSL server root certificate file path. The file must contain PEM encoded data.
+ */
+export declare const sslrootcert: string | undefined;
+Object.defineProperty(exports, "sslrootcert", {
+    get() {
+        return __config.get("sslrootcert");
+    },
+    enumerable: true,
+});
+
+/**
+ * Specify if the user to connect as is a CockroachDB superuser or not.
+ */
+export declare const superuser: boolean | undefined;
+Object.defineProperty(exports, "superuser", {
+    get() {
+        return __config.getObject<boolean>("superuser");
+    },
+    enumerable: true,
+});
+
+/**
+ * Connection URL for CockroachDB. If set, this overrides other connection parameters.
+ */
+export declare const url: string | undefined;
+Object.defineProperty(exports, "url", {
+    get() {
+        return __config.get("url");
+    },
+    enumerable: true,
+});
+
+/**
+ * CockroachDB user name to connect as
+ */
+export declare const username: string | undefined;
+Object.defineProperty(exports, "username", {
+    get() {
+        return __config.get("username");
     },
     enumerable: true,
 });

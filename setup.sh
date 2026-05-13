@@ -121,8 +121,8 @@ if [[ -z "${repository}" ]]; then
 fi
 
 # Check if we're in a clean state
-if test ! -d "provider/cmd/pulumi-tfgen-xyz"; then
-  echo "Project already renamed, provider/cmd/pulumi-tfgen-xyz not found"
+if test ! -d "provider/cmd/pulumi-tfgen-cockroachsql"; then
+  echo "Project already renamed, provider/cmd/pulumi-tfgen-cockroachsql not found"
   exit 1
 fi
 
@@ -141,39 +141,39 @@ replace() {
 }
 
 # ci-mgmt
-replace .ci-mgmt.yaml "provider: xyz" "provider: ${provider}"
+replace .ci-mgmt.yaml "provider: cockroachsql" "provider: ${provider}"
 replace .ci-mgmt.yaml "organization: pulumi" "organization: ${organization}"
 make ci-mgmt
 
 # Readme
 # Delete README.md prelude up to the provider title line
-provider_title_line_number=$(grep -n '# Xyz Resource Provider' README.md | cut -f1 -d:)
+provider_title_line_number=$(grep -n '# Cockroachsql Resource Provider' README.md | cut -f1 -d:)
 sed_inplace README.md "1,$((provider_title_line_number-1))d"
-replace README.md "xyz" "${provider}"
-replace README.md "Xyz" "$(echo "${provider}" | awk '{print toupper(substr($0,1,1)) substr($0,2)}' || true)"
-replace README.md "XYZ" "$(echo "${provider}" | awk '{print toupper($0)}' || true)"
+replace README.md "cockroachsql" "${provider}"
+replace README.md "Cockroachsql" "$(echo "${provider}" | awk '{print toupper(substr($0,1,1)) substr($0,2)}' || true)"
+replace README.md "COCKROACHSQL" "$(echo "${provider}" | awk '{print toupper($0)}' || true)"
 
 # Remove bridge metadata
-rm -f provider/cmd/pulumi-resource-xyz/bridge-metadata.json
+rm -f provider/cmd/pulumi-resource-cockroachsql/bridge-metadata.json
 
 # Go modules & code
 replace_go_src() {
-  replace "${1}" github.com/pulumi/terraform-provider-xyz "${upstream}"
-  replace "${1}" "github\.com/pulumi/pulumi-xyz" "github\.com/${organization}/${repository}"
-  replace "${1}" xyz "${provider}"
+  replace "${1}" github.com/nellisauction/terraform-provider-cockroachsql "${upstream}"
+  replace "${1}" "github\.com/pulumi/pulumi-cockroachsql" "github\.com/${organization}/${repository}"
+  replace "${1}" cockroachsql "${provider}"
 }
-replace provider/go.mod "github\.com/pulumi/pulumi-xyz" "github\.com/${organization}/${repository}"
-replace provider/go.mod "github.com/pulumi/terraform-provider-xyz v.*" "${upstream} latest"
+replace provider/go.mod "github\.com/pulumi/pulumi-cockroachsql" "github\.com/${organization}/${repository}"
+replace provider/go.mod "github.com/nellisauction/terraform-provider-cockroachsql v.*" "${upstream} latest"
 replace_go_src provider/resources.go
-replace_go_src provider/cmd/pulumi-tfgen-xyz/main.go
-replace_go_src provider/cmd/pulumi-resource-xyz/main.go
-if [[ "${provider}" != "xyz" ]]; then # Don't fail on no-op rename
-  mv provider/cmd/pulumi-tfgen-xyz "provider/cmd/pulumi-tfgen-${provider}"
-  mv provider/cmd/pulumi-resource-xyz "provider/cmd/pulumi-resource-${provider}"
+replace_go_src provider/cmd/pulumi-tfgen-cockroachsql/main.go
+replace_go_src provider/cmd/pulumi-resource-cockroachsql/main.go
+if [[ "${provider}" != "cockroachsql" ]]; then # Don't fail on no-op rename
+  mv provider/cmd/pulumi-tfgen-cockroachsql "provider/cmd/pulumi-tfgen-${provider}"
+  mv provider/cmd/pulumi-resource-cockroachsql "provider/cmd/pulumi-resource-${provider}"
 fi
 # Resolve to a real upstream version in the go.mod
 (cd provider && go get "${upstream}")
-replace examples/go.mod "github\.com/pulumi/pulumi-xyz" "github\.com/${organization}/${repository}"
+replace examples/go.mod "github\.com/pulumi/pulumi-cockroachsql" "github\.com/${organization}/${repository}"
 replace_go_src examples/examples_test.go
 
 echo "Automated repository initialization complete. Please review changes and commit."

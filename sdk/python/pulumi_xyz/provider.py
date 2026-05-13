@@ -42,7 +42,7 @@ class ProviderArgs:
         pulumi.set(self, "region", value)
 
 
-@pulumi.type_token("pulumi:providers:xyz")
+@pulumi.type_token("pulumi:providers:cockroachsql")
 class Provider(pulumi.ProviderResource):
     @overload
     def __init__(__self__,
@@ -51,7 +51,7 @@ class Provider(pulumi.ProviderResource):
                  region: pulumi.Input[Optional['region.Region']] = None,
                  __props__=None):
         """
-        The provider type for the xyz package. By default, resources use package-wide configuration
+        The provider type for the cockroachsql package. By default, resources use package-wide configuration
         settings, however an explicit `Provider` instance may be created and passed during resource
         construction to achieve fine-grained programmatic control over provider settings. See the
         [documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.
@@ -68,7 +68,7 @@ class Provider(pulumi.ProviderResource):
                  args: Optional[ProviderArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        The provider type for the xyz package. By default, resources use package-wide configuration
+        The provider type for the cockroachsql package. By default, resources use package-wide configuration
         settings, however an explicit `Provider` instance may be created and passed during resource
         construction to achieve fine-grained programmatic control over provider settings. See the
         [documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.
@@ -101,7 +101,7 @@ class Provider(pulumi.ProviderResource):
 
             __props__.__dict__["region"] = pulumi.Output.from_input(region).apply(pulumi.runtime.to_json) if region is not None else None
         super(Provider, __self__).__init__(
-            'xyz',
+            'cockroachsql',
             resource_name,
             __props__,
             opts)
@@ -124,5 +124,5 @@ class Provider(pulumi.ProviderResource):
         """
         __args__ = dict()
         __args__['__self__'] = __self__
-        return pulumi.runtime.call('pulumi:providers:xyz/terraformConfig', __args__, res=__self__, typ=Provider.TerraformConfigResult)
+        return pulumi.runtime.call('pulumi:providers:cockroachsql/terraformConfig', __args__, res=__self__, typ=Provider.TerraformConfigResult)
 

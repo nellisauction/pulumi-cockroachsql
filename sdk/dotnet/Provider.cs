@@ -7,17 +7,75 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Xyz
+namespace Pulumi.CockroachSql
 {
     /// <summary>
-    /// The provider type for the xyz package. By default, resources use package-wide configuration
+    /// The provider type for the cockroachsql package. By default, resources use package-wide configuration
     /// settings, however an explicit `Provider` instance may be created and passed during resource
     /// construction to achieve fine-grained programmatic control over provider settings. See the
     /// [documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.
     /// </summary>
-    [XyzResourceType("pulumi:providers:xyz")]
+    [CockroachSqlResourceType("pulumi:providers:cockroachsql")]
     public partial class Provider : global::Pulumi.ProviderResource
     {
+        /// <summary>
+        /// The name of the database to connect to (defaults to `Defaultdb`).
+        /// </summary>
+        [Output("database")]
+        public Output<string?> Database { get; private set; } = null!;
+
+        /// <summary>
+        /// Database username associated to the connected user (for user name maps)
+        /// </summary>
+        [Output("databaseUsername")]
+        public Output<string?> DatabaseUsername { get; private set; } = null!;
+
+        /// <summary>
+        /// Specify the expected version of CockroachDB.
+        /// </summary>
+        [Output("expectedVersion")]
+        public Output<string?> ExpectedVersion { get; private set; } = null!;
+
+        /// <summary>
+        /// Name of CockroachDB server address to connect to
+        /// </summary>
+        [Output("host")]
+        public Output<string?> Host { get; private set; } = null!;
+
+        /// <summary>
+        /// Password to be used if the CockroachDB server demands password authentication
+        /// </summary>
+        [Output("password")]
+        public Output<string?> Password { get; private set; } = null!;
+
+        [Output("sslMode")]
+        public Output<string?> SslMode { get; private set; } = null!;
+
+        /// <summary>
+        /// This option determines whether or with what priority a secure SSL TCP/IP connection will be negotiated with the CockroachDB server
+        /// </summary>
+        [Output("sslmode")]
+        public Output<string?> Sslmode { get; private set; } = null!;
+
+        /// <summary>
+        /// The SSL server root certificate file path. The file must contain PEM encoded data.
+        /// </summary>
+        [Output("sslrootcert")]
+        public Output<string?> Sslrootcert { get; private set; } = null!;
+
+        /// <summary>
+        /// Connection URL for CockroachDB. If set, this overrides other connection parameters.
+        /// </summary>
+        [Output("url")]
+        public Output<string?> Url { get; private set; } = null!;
+
+        /// <summary>
+        /// CockroachDB user name to connect as
+        /// </summary>
+        [Output("username")]
+        public Output<string?> Username { get; private set; } = null!;
+
+
         /// <summary>
         /// Create a Provider resource with the given unique name, arguments, and options.
         /// </summary>
@@ -26,7 +84,7 @@ namespace Pulumi.Xyz
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Provider(string name, ProviderArgs? args = null, CustomResourceOptions? options = null)
-            : base("xyz", name, args ?? new ProviderArgs(), MakeResourceOptions(options, ""))
+            : base("cockroachsql", name, args ?? new ProviderArgs(), MakeResourceOptions(options, ""))
         {
         }
 
@@ -35,6 +93,12 @@ namespace Pulumi.Xyz
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
+                PluginDownloadURL = "github://api.github.com/nellisauction/pulumi-cockroachsql",
+                AdditionalSecretOutputs =
+                {
+                    "password",
+                    "url",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -46,19 +110,122 @@ namespace Pulumi.Xyz
         /// This function returns a Terraform config object with terraform-namecased keys,to be used with the Terraform Module Provider.
         /// </summary>
         public global::Pulumi.Output<ProviderTerraformConfigResult> TerraformConfig()
-            => global::Pulumi.Deployment.Instance.Call<ProviderTerraformConfigResult>("pulumi:providers:xyz/terraformConfig", CallArgs.Empty, this);
+            => global::Pulumi.Deployment.Instance.Call<ProviderTerraformConfigResult>("pulumi:providers:cockroachsql/terraformConfig", CallArgs.Empty, this);
     }
 
     public sealed class ProviderArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// A region which should be used.
+        /// SSL client certificate if required by the database.
         /// </summary>
-        [Input("region", json: true)]
-        public Input<Pulumi.Xyz.Region.Region>? Region { get; set; }
+        [Input("clientcert", json: true)]
+        public Input<Inputs.ProviderClientcertArgs>? Clientcert { get; set; }
+
+        /// <summary>
+        /// Maximum wait for connection, in seconds. Zero or not specified means wait indefinitely.
+        /// </summary>
+        [Input("connectTimeout", json: true)]
+        public Input<int>? ConnectTimeout { get; set; }
+
+        /// <summary>
+        /// The name of the database to connect to (defaults to `Defaultdb`).
+        /// </summary>
+        [Input("database")]
+        public Input<string>? Database { get; set; }
+
+        /// <summary>
+        /// Database username associated to the connected user (for user name maps)
+        /// </summary>
+        [Input("databaseUsername")]
+        public Input<string>? DatabaseUsername { get; set; }
+
+        /// <summary>
+        /// Specify the expected version of CockroachDB.
+        /// </summary>
+        [Input("expectedVersion")]
+        public Input<string>? ExpectedVersion { get; set; }
+
+        /// <summary>
+        /// Name of CockroachDB server address to connect to
+        /// </summary>
+        [Input("host")]
+        public Input<string>? Host { get; set; }
+
+        /// <summary>
+        /// Maximum number of connections to establish to the database. Zero means unlimited.
+        /// </summary>
+        [Input("maxConnections", json: true)]
+        public Input<int>? MaxConnections { get; set; }
+
+        [Input("password")]
+        private Input<string>? _password;
+
+        /// <summary>
+        /// Password to be used if the CockroachDB server demands password authentication
+        /// </summary>
+        public Input<string>? Password
+        {
+            get => _password;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _password = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        /// <summary>
+        /// The CockroachDB port number to connect to at the server host
+        /// </summary>
+        [Input("port", json: true)]
+        public Input<int>? Port { get; set; }
+
+        [Input("sslMode")]
+        public Input<string>? SslMode { get; set; }
+
+        /// <summary>
+        /// This option determines whether or with what priority a secure SSL TCP/IP connection will be negotiated with the CockroachDB server
+        /// </summary>
+        [Input("sslmode")]
+        public Input<string>? Sslmode { get; set; }
+
+        /// <summary>
+        /// The SSL server root certificate file path. The file must contain PEM encoded data.
+        /// </summary>
+        [Input("sslrootcert")]
+        public Input<string>? Sslrootcert { get; set; }
+
+        /// <summary>
+        /// Specify if the user to connect as is a CockroachDB superuser or not.
+        /// </summary>
+        [Input("superuser", json: true)]
+        public Input<bool>? Superuser { get; set; }
+
+        [Input("url")]
+        private Input<string>? _url;
+
+        /// <summary>
+        /// Connection URL for CockroachDB. If set, this overrides other connection parameters.
+        /// </summary>
+        public Input<string>? Url
+        {
+            get => _url;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _url = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        /// <summary>
+        /// CockroachDB user name to connect as
+        /// </summary>
+        [Input("username")]
+        public Input<string>? Username { get; set; }
 
         public ProviderArgs()
         {
+            ConnectTimeout = Utilities.GetEnvInt32("PGCONNECT_TIMEOUT") ?? 180;
+            Sslmode = Utilities.GetEnv("PGSSLMODE");
         }
         public static new ProviderArgs Empty => new ProviderArgs();
     }

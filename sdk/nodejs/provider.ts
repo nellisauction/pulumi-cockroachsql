@@ -4,18 +4,17 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "./types/input";
 import * as outputs from "./types/output";
-import * as enums from "./types/enums";
 import * as utilities from "./utilities";
 
 /**
- * The provider type for the xyz package. By default, resources use package-wide configuration
+ * The provider type for the cockroachsql package. By default, resources use package-wide configuration
  * settings, however an explicit `Provider` instance may be created and passed during resource
  * construction to achieve fine-grained programmatic control over provider settings. See the
  * [documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.
  */
 export class Provider extends pulumi.ProviderResource {
     /** @internal */
-    public static readonly __pulumiType = 'xyz';
+    public static readonly __pulumiType = 'cockroachsql';
 
     /**
      * Returns true if the given object is an instance of Provider.  This is designed to work even
@@ -28,6 +27,46 @@ export class Provider extends pulumi.ProviderResource {
         return obj['__pulumiType'] === "pulumi:providers:" + Provider.__pulumiType;
     }
 
+    /**
+     * The name of the database to connect to (defaults to `defaultdb`).
+     */
+    declare public readonly database: pulumi.Output<string | undefined>;
+    /**
+     * Database username associated to the connected user (for user name maps)
+     */
+    declare public readonly databaseUsername: pulumi.Output<string | undefined>;
+    /**
+     * Specify the expected version of CockroachDB.
+     */
+    declare public readonly expectedVersion: pulumi.Output<string | undefined>;
+    /**
+     * Name of CockroachDB server address to connect to
+     */
+    declare public readonly host: pulumi.Output<string | undefined>;
+    /**
+     * Password to be used if the CockroachDB server demands password authentication
+     */
+    declare public readonly password: pulumi.Output<string | undefined>;
+    /**
+     * @deprecated Rename CockroachDB provider `sslMode` attribute to `sslmode`
+     */
+    declare public readonly sslMode: pulumi.Output<string | undefined>;
+    /**
+     * This option determines whether or with what priority a secure SSL TCP/IP connection will be negotiated with the CockroachDB server
+     */
+    declare public readonly sslmode: pulumi.Output<string | undefined>;
+    /**
+     * The SSL server root certificate file path. The file must contain PEM encoded data.
+     */
+    declare public readonly sslrootcert: pulumi.Output<string | undefined>;
+    /**
+     * Connection URL for CockroachDB. If set, this overrides other connection parameters.
+     */
+    declare public readonly url: pulumi.Output<string | undefined>;
+    /**
+     * CockroachDB user name to connect as
+     */
+    declare public readonly username: pulumi.Output<string | undefined>;
 
     /**
      * Create a Provider resource with the given unique name, arguments, and options.
@@ -40,9 +79,25 @@ export class Provider extends pulumi.ProviderResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         {
-            resourceInputs["region"] = args?.region;
+            resourceInputs["clientcert"] = pulumi.output(args?.clientcert).apply(JSON.stringify);
+            resourceInputs["connectTimeout"] = pulumi.output((args?.connectTimeout) ?? (utilities.getEnvNumber("PGCONNECT_TIMEOUT") || 180)).apply(JSON.stringify);
+            resourceInputs["database"] = args?.database;
+            resourceInputs["databaseUsername"] = args?.databaseUsername;
+            resourceInputs["expectedVersion"] = args?.expectedVersion;
+            resourceInputs["host"] = args?.host;
+            resourceInputs["maxConnections"] = pulumi.output(args?.maxConnections).apply(JSON.stringify);
+            resourceInputs["password"] = args?.password ? pulumi.secret(args.password) : undefined;
+            resourceInputs["port"] = pulumi.output(args?.port).apply(JSON.stringify);
+            resourceInputs["sslMode"] = args?.sslMode;
+            resourceInputs["sslmode"] = (args?.sslmode) ?? utilities.getEnv("PGSSLMODE");
+            resourceInputs["sslrootcert"] = args?.sslrootcert;
+            resourceInputs["superuser"] = pulumi.output(args?.superuser).apply(JSON.stringify);
+            resourceInputs["url"] = args?.url ? pulumi.secret(args.url) : undefined;
+            resourceInputs["username"] = args?.username;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["password", "url"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(Provider.__pulumiType, name, resourceInputs, opts);
     }
 
@@ -50,7 +105,7 @@ export class Provider extends pulumi.ProviderResource {
      * This function returns a Terraform config object with terraform-namecased keys,to be used with the Terraform Module Provider.
      */
     terraformConfig(): pulumi.Output<Provider.TerraformConfigResult> {
-        return pulumi.runtime.call("pulumi:providers:xyz/terraformConfig", {
+        return pulumi.runtime.call("pulumi:providers:cockroachsql/terraformConfig", {
             "__self__": this,
         }, this);
     }
@@ -61,9 +116,65 @@ export class Provider extends pulumi.ProviderResource {
  */
 export interface ProviderArgs {
     /**
-     * A region which should be used.
+     * SSL client certificate if required by the database.
      */
-    region?: pulumi.Input<enums.region.Region | undefined>;
+    clientcert?: pulumi.Input<inputs.ProviderClientcert | undefined>;
+    /**
+     * Maximum wait for connection, in seconds. Zero or not specified means wait indefinitely.
+     */
+    connectTimeout?: pulumi.Input<number | undefined>;
+    /**
+     * The name of the database to connect to (defaults to `defaultdb`).
+     */
+    database?: pulumi.Input<string | undefined>;
+    /**
+     * Database username associated to the connected user (for user name maps)
+     */
+    databaseUsername?: pulumi.Input<string | undefined>;
+    /**
+     * Specify the expected version of CockroachDB.
+     */
+    expectedVersion?: pulumi.Input<string | undefined>;
+    /**
+     * Name of CockroachDB server address to connect to
+     */
+    host?: pulumi.Input<string | undefined>;
+    /**
+     * Maximum number of connections to establish to the database. Zero means unlimited.
+     */
+    maxConnections?: pulumi.Input<number | undefined>;
+    /**
+     * Password to be used if the CockroachDB server demands password authentication
+     */
+    password?: pulumi.Input<string | undefined>;
+    /**
+     * The CockroachDB port number to connect to at the server host
+     */
+    port?: pulumi.Input<number | undefined>;
+    /**
+     * @deprecated Rename CockroachDB provider `sslMode` attribute to `sslmode`
+     */
+    sslMode?: pulumi.Input<string | undefined>;
+    /**
+     * This option determines whether or with what priority a secure SSL TCP/IP connection will be negotiated with the CockroachDB server
+     */
+    sslmode?: pulumi.Input<string | undefined>;
+    /**
+     * The SSL server root certificate file path. The file must contain PEM encoded data.
+     */
+    sslrootcert?: pulumi.Input<string | undefined>;
+    /**
+     * Specify if the user to connect as is a CockroachDB superuser or not.
+     */
+    superuser?: pulumi.Input<boolean | undefined>;
+    /**
+     * Connection URL for CockroachDB. If set, this overrides other connection parameters.
+     */
+    url?: pulumi.Input<string | undefined>;
+    /**
+     * CockroachDB user name to connect as
+     */
+    username?: pulumi.Input<string | undefined>;
 }
 
 export namespace Provider {

@@ -66,7 +66,7 @@ class _ResourceState:
         pulumi.set(self, "sample_attribute", value)
 
 
-@pulumi.type_token("xyz:index/resource:Resource")
+@pulumi.type_token("cockroachsql:index/resource:Resource")
 class Resource(pulumi.CustomResource):
     @overload
     def __init__(__self__,
@@ -117,7 +117,7 @@ class Resource(pulumi.CustomResource):
 
             __props__.__dict__["sample_attribute"] = sample_attribute
         super(Resource, __self__).__init__(
-            'xyz:index/resource:Resource',
+            'cockroachsql:index/resource:Resource',
             resource_name,
             __props__,
             opts)

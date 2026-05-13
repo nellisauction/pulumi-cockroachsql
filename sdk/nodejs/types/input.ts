@@ -4,5 +4,20 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
-import * as enums from "../types/enums";
 
+export interface ProviderClientcert {
+    /**
+     * The SSL client certificate file path. The file must contain PEM encoded data.
+     */
+    cert: pulumi.Input<string>;
+    /**
+     * The SSL client certificate private key file path. The file must contain PEM encoded data.
+     */
+    key: pulumi.Input<string>;
+    /**
+     * Must be set to true if you are inlining the cert/key instead of using a file path.
+     */
+    sslinline?: pulumi.Input<boolean | undefined>;
+}
+export namespace config {
+}

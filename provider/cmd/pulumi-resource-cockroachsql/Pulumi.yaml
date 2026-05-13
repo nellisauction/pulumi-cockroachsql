@@ -1,0 +1,3 @@
+name: cockroachsql
+description: A Pulumi resource provider for cockroachsql.
+language: schema

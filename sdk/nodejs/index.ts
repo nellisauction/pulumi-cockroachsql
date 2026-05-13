@@ -5,28 +5,61 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 // Export members:
-export { GetDataSourceArgs, GetDataSourceResult, GetDataSourceOutputArgs } from "./getDataSource";
-export const getDataSource: typeof import("./getDataSource").getDataSource = null as any;
-export const getDataSourceOutput: typeof import("./getDataSource").getDataSourceOutput = null as any;
-utilities.lazyLoad(exports, ["getDataSource","getDataSourceOutput"], () => require("./getDataSource"));
+export { DatabaseArgs, DatabaseState } from "./database";
+export type Database = import("./database").Database;
+export const Database: typeof import("./database").Database = null as any;
+utilities.lazyLoad(exports, ["Database"], () => require("./database"));
+
+export { DefaultPrivilegesArgs, DefaultPrivilegesState } from "./defaultPrivileges";
+export type DefaultPrivileges = import("./defaultPrivileges").DefaultPrivileges;
+export const DefaultPrivileges: typeof import("./defaultPrivileges").DefaultPrivileges = null as any;
+utilities.lazyLoad(exports, ["DefaultPrivileges"], () => require("./defaultPrivileges"));
+
+export { GetSchemasArgs, GetSchemasResult, GetSchemasOutputArgs } from "./getSchemas";
+export const getSchemas: typeof import("./getSchemas").getSchemas = null as any;
+export const getSchemasOutput: typeof import("./getSchemas").getSchemasOutput = null as any;
+utilities.lazyLoad(exports, ["getSchemas","getSchemasOutput"], () => require("./getSchemas"));
+
+export { GetSequencesArgs, GetSequencesResult, GetSequencesOutputArgs } from "./getSequences";
+export const getSequences: typeof import("./getSequences").getSequences = null as any;
+export const getSequencesOutput: typeof import("./getSequences").getSequencesOutput = null as any;
+utilities.lazyLoad(exports, ["getSequences","getSequencesOutput"], () => require("./getSequences"));
+
+export { GetTablesArgs, GetTablesResult, GetTablesOutputArgs } from "./getTables";
+export const getTables: typeof import("./getTables").getTables = null as any;
+export const getTablesOutput: typeof import("./getTables").getTablesOutput = null as any;
+utilities.lazyLoad(exports, ["getTables","getTablesOutput"], () => require("./getTables"));
+
+export { GrantArgs, GrantState } from "./grant";
+export type Grant = import("./grant").Grant;
+export const Grant: typeof import("./grant").Grant = null as any;
+utilities.lazyLoad(exports, ["Grant"], () => require("./grant"));
+
+export { GrantRoleArgs, GrantRoleState } from "./grantRole";
+export type GrantRole = import("./grantRole").GrantRole;
+export const GrantRole: typeof import("./grantRole").GrantRole = null as any;
+utilities.lazyLoad(exports, ["GrantRole"], () => require("./grantRole"));
 
 export * from "./provider";
 import { Provider } from "./provider";
 
-export { ResourceArgs, ResourceState } from "./resource";
-export type Resource = import("./resource").Resource;
-export const Resource: typeof import("./resource").Resource = null as any;
-utilities.lazyLoad(exports, ["Resource"], () => require("./resource"));
+export { RoleArgs, RoleState } from "./role";
+export type Role = import("./role").Role;
+export const Role: typeof import("./role").Role = null as any;
+utilities.lazyLoad(exports, ["Role"], () => require("./role"));
+
+export { SchemaArgs, SchemaState } from "./schema";
+export type Schema = import("./schema").Schema;
+export const Schema: typeof import("./schema").Schema = null as any;
+utilities.lazyLoad(exports, ["Schema"], () => require("./schema"));
 
 
 // Export sub-modules:
 import * as config from "./config";
-import * as region from "./region";
 import * as types from "./types";
 
 export {
     config,
-    region,
     types,
 };
 
@@ -34,20 +67,35 @@ const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
-            case "xyz:index/resource:Resource":
-                return new Resource(name, <any>undefined, { urn })
+            case "cockroachsql:index/database:Database":
+                return new Database(name, undefined as any, { urn })
+            case "cockroachsql:index/defaultPrivileges:DefaultPrivileges":
+                return new DefaultPrivileges(name, undefined as any, { urn })
+            case "cockroachsql:index/grant:Grant":
+                return new Grant(name, undefined as any, { urn })
+            case "cockroachsql:index/grantRole:GrantRole":
+                return new GrantRole(name, undefined as any, { urn })
+            case "cockroachsql:index/role:Role":
+                return new Role(name, undefined as any, { urn })
+            case "cockroachsql:index/schema:Schema":
+                return new Schema(name, undefined as any, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
     },
 };
-pulumi.runtime.registerResourceModule("xyz", "index/resource", _module)
-pulumi.runtime.registerResourcePackage("xyz", {
+pulumi.runtime.registerResourceModule("cockroachsql", "index/database", _module)
+pulumi.runtime.registerResourceModule("cockroachsql", "index/defaultPrivileges", _module)
+pulumi.runtime.registerResourceModule("cockroachsql", "index/grant", _module)
+pulumi.runtime.registerResourceModule("cockroachsql", "index/grantRole", _module)
+pulumi.runtime.registerResourceModule("cockroachsql", "index/role", _module)
+pulumi.runtime.registerResourceModule("cockroachsql", "index/schema", _module)
+pulumi.runtime.registerResourcePackage("cockroachsql", {
     version: utilities.getVersion(),
     constructProvider: (name: string, type: string, urn: string): pulumi.ProviderResource => {
-        if (type !== "pulumi:providers:xyz") {
+        if (type !== "pulumi:providers:cockroachsql") {
             throw new Error(`unknown provider type ${type}`);
         }
-        return new Provider(name, <any>undefined, { urn });
+        return new Provider(name, undefined as any, { urn });
     },
 });

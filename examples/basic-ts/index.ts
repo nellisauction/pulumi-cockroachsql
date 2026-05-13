@@ -1,6 +1,6 @@
 import * as pulumi from "@pulumi/pulumi";
-import * as xyz from "@pulumi/xyz";
+import * as cockroachsql from "@pulumi/cockroachsql";
 
-const resource = new xyz.Resource("Resource", { sampleAttribute: "attr" });
+const resource = new cockroachsql.Resource("Resource", { sampleAttribute: "attr" });
 
 export const sampleAttribute = resource.sampleAttribute;

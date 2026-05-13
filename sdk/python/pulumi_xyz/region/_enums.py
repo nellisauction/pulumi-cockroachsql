@@ -11,7 +11,7 @@ __all__ = [
 ]
 
 
-@pulumi.type_token("xyz:region/region:Region")
+@pulumi.type_token("cockroachsql:region/region:Region")
 class Region(_builtins.str, Enum):
     HERE = "HERE"
     OVER_THERE = "OVER_THERE"

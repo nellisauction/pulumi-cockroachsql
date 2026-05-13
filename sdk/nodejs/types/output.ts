@@ -4,5 +4,33 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
-import * as enums from "../types/enums";
 
+export interface GetSequencesSequence {
+    dataType: string;
+    objectName: string;
+    schemaName: string;
+}
+
+export interface GetTablesTable {
+    objectName: string;
+    schemaName: string;
+    tableType: string;
+}
+
+export namespace config {
+    export interface Clientcert {
+        /**
+         * The SSL client certificate file path. The file must contain PEM encoded data.
+         */
+        cert: string;
+        /**
+         * The SSL client certificate private key file path. The file must contain PEM encoded data.
+         */
+        key: string;
+        /**
+         * Must be set to true if you are inlining the cert/key instead of using a file path.
+         */
+        sslinline?: boolean;
+    }
+
+}
