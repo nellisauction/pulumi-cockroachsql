@@ -1,4 +1,3 @@
-name: Prerequisites
 on:
   workflow_call:
     inputs:
