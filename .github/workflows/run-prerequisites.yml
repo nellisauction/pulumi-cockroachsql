@@ -24,5 +24,23 @@ jobs:
     outputs:
       version: ${{ steps.set_version.outputs.version }}
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - env:
+          ESC_ACTION_ENVIRONMENT: imports/github-secrets
+          ESC_ACTION_EXPORT_ENVIRONMENT_VARIABLES: "false"
+          ESC_ACTION_OIDC_AUTH: "true"
+          ESC_ACTION_OIDC_ORGANIZATION: nellisauction
+          ESC_ACTION_OIDC_REQUESTED_TOKEN_TYPE: urn:pulumi:token-type:access_token:organization
+        id: esc-secrets
+        uses: pulumi/esc-action@v1
+      - uses: actions/create-github-app-token@v1
+        id: app-auth
+        with:
+          app-id: ${{ steps.esc-secrets.outputs.PULUMI_PROVIDER_AUTOMATION_APP_ID }}
+          private-key: ${{ steps.esc-secrets.outputs.PULUMI_PROVIDER_AUTOMATION_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
       - id: set_version
         run: echo "version=0.1.0" >> "$GITHUB_OUTPUT"
