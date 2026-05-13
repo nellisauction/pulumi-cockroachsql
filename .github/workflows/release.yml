@@ -1,94 +1,57 @@
-name: release
+name: Release
 on:
   push:
     tags:
-    - v*.*.*
-
-env:
-  PULUMI_API: https://api.pulumi.com
-  TF_APPEND_USER_AGENT: pulumi
-  PROVIDER_VERSION: ${{ github.ref_name }}
+      - v*.*.*
 
 jobs:
-  build_provider:
-    name: build_provider
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        platform:
-          - {os: linux, arch: amd64}
-          - {os: linux, arch: arm64}
-          - {os: darwin, arch: amd64}
-          - {os: darwin, arch: arm64}
-          - {os: windows, arch: amd64}
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v4
-      
-      - name: Setup mise
-        uses: jdx/mise-action@v2
-
-      - name: Build provider
-        run: |
-          make prepare_local_workspace
-          make schema
-          make provider-${{ matrix.platform.os }}-${{ matrix.platform.arch }}
-          make provider_dist-${{ matrix.platform.os }}-${{ matrix.platform.arch }}
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: provider-${{ matrix.platform.os }}-${{ matrix.platform.arch }}
-          path: bin/pulumi-resource-cockroachsql-v${{ github.ref_name }}-${{ matrix.platform.os }}-${{ matrix.platform.arch }}.tar.gz
-
-  build_sdk:
-    name: build_sdk
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        language: [nodejs, python, dotnet, go]
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v4
-      
-      - name: Setup mise
-        uses: jdx/mise-action@v2
-
-      - name: Build SDK
-        run: |
-          make prepare_local_workspace
-          make schema
-          make build_${{ matrix.language }}
-
-      - name: Upload SDK
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.language }}-sdk
-          path: sdk/${{ matrix.language }}
-
-  publish:
-    needs: [build_provider, build_sdk]
+  release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
       id-token: write
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v4
-
-      - name: Download all artifacts
-        uses: actions/download-artifact@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
         with:
-          path: artifacts
-
-      - name: Create GH Release
-        uses: softprops/action-gh-release@v2
+          go-version: '1.24'
+      - uses: actions/setup-node@v4
         with:
-          tag_name: ${{ github.ref }}
-          generate_release_notes: true
-          files: artifacts/provider-*/*.tar.gz
+          node-version: '20'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Set Version
+        run: echo "PROVIDER_VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
+
+      - name: Build and Package Provider
+        run: |
+          make tfgen_build_only
+          ./bin/pulumi-tfgen-cockroachsql schema --out provider/cmd/pulumi-resource-cockroachsql
+          
+          # Cross compile and Package for common platforms
+          # This uses the targets defined in scripts/crossbuild.mk
+          make provider_dist-linux-amd64
+          make provider_dist-linux-arm64
+          make provider_dist-darwin-amd64
+          make provider_dist-darwin-arm64
+          make provider_dist-windows-amd64
+
+      - name: Build and Pack SDKs
+        run: |
+          make build_nodejs
+          make build_python
+          make build_dotnet
+
+      - name: GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create ${{ github.ref_name }} \
+            --title "Release ${{ github.ref_name }}" \
+            --generate-notes \
+            bin/*.tar.gz
 
       - name: Authenticate with Cloudsmith
         uses: cloudsmith-io/cloudsmith-cli-action@v2
@@ -96,18 +59,14 @@ jobs:
           oidc-namespace: 'nellisauction'
           oidc-service-slug: 'github-actions'
 
-      - name: Push Node.js SDK
+      - name: Push to Cloudsmith
         run: |
-          cd artifacts/nodejs-sdk/bin
-          cloudsmith push npm nellisauction/pulumi-cockroachsql *.tgz
-
-      - name: Push Python SDK
-        run: |
-          cd artifacts/python-sdk/bin/dist
-          cloudsmith push python nellisauction/pulumi-cockroachsql *.whl
-          cloudsmith push python nellisauction/pulumi-cockroachsql *.tar.gz
-
-      - name: Push Dotnet SDK
-        run: |
-          cd artifacts/dotnet-sdk/bin
-          cloudsmith push nuget nellisauction/pulumi-cockroachsql *.nupkg
+          # Node.js
+          cloudsmith push npm nellisauction/pulumi-cockroachsql sdk/nodejs/bin/*.tgz
+          
+          # Python
+          cloudsmith push python nellisauction/pulumi-cockroachsql sdk/python/bin/dist/*.whl
+          cloudsmith push python nellisauction/pulumi-cockroachsql sdk/python/bin/dist/*.tar.gz
+          
+          # NuGet (Dotnet)
+          cloudsmith push nuget nellisauction/pulumi-cockroachsql sdk/dotnet/bin/*.nupkg

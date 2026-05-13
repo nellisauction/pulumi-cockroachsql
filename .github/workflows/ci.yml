@@ -1,0 +1,42 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+          cache: true
+          cache-dependency-path: provider/go.sum
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: sdk/nodejs/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: Build Provider
+        run: |
+          make tfgen_build_only
+          ./bin/pulumi-tfgen-cockroachsql schema --out provider/cmd/pulumi-resource-cockroachsql
+          make provider_no_deps
+      
+      - name: Build SDKs
+        run: |
+          make generate_nodejs
+          make generate_python
+          make generate_go
+          make generate_dotnet
+      
+      - name: Test Provider
+        run: make test_provider
