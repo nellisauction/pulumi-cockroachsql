@@ -6,7 +6,10 @@ on:
     - main
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Hello World"
+  prerequisites:
+    uses: ./.github/workflows/prerequisites.yml
+    with:
+      default_branch: main
+      is_pr: false
+      is_automated: false
+    secrets: inherit
