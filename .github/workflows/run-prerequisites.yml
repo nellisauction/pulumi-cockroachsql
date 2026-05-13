@@ -17,6 +17,10 @@ on:
 jobs:
   prerequisites:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      id-token: write
     outputs:
       version: ${{ steps.set_version.outputs.version }}
     steps:
