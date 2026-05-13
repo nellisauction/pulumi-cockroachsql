@@ -27,6 +27,7 @@ jobs:
 
       - name: Build and Package Provider
         run: |
+          cd provider && sed -i '/replace github.com\/nellisauction\/terraform-provider-cockroachsql/d' go.mod && cd ..
           make tfgen_build_only
           ./bin/pulumi-tfgen-cockroachsql schema --out provider/cmd/pulumi-resource-cockroachsql
           
