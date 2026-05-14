@@ -73,12 +73,12 @@ func Provider() tfbridge.ProviderInfo {
 		Config: map[string]*tfbridge.SchemaInfo{
 			"sslmode": {
 				Default: &tfbridge.DefaultInfo{
-					EnvVars: []string{"PGSSLMODE"},
+					EnvVars: []string{"COCKROACH_SSLMODE"},
 				},
 			},
 			"connect_timeout": {
 				Default: &tfbridge.DefaultInfo{
-					EnvVars: []string{"PGCONNECT_TIMEOUT"},
+					EnvVars: []string{"COCKROACH_CONNECT_TIMEOUT"},
 					Value:   180,
 				},
 			},

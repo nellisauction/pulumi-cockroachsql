@@ -1,6 +1,6 @@
 # CockroachSQL Resource Provider
 
-The CockroachSQL Resource Provider lets you manage [CockroachSQL](http://example.com) resources.
+The CockroachSQL Resource Provider lets you manage [CockroachDB](https://www.cockroachlabs.com/) SQL resources.
 
 ## Installing
 
@@ -11,13 +11,13 @@ This package is available for several languages/platforms:
 To use from JavaScript or TypeScript in Node.js, install using either `npm`:
 
 ```bash
-npm install @pulumi/cockroachsql
+npm install @nellisauction/pulumi-cockroachsql
 ```
 
 or `yarn`:
 
 ```bash
-yarn add @pulumi/cockroachsql
+yarn add @nellisauction/pulumi-cockroachsql
 ```
 
 ### Python
@@ -48,7 +48,14 @@ dotnet add package Pulumi.Cockroachsql
 
 The following configuration points are available for the `cockroachsql` provider:
 
-- `cockroachsql:region` (environment: `COCKROACHSQL_REGION`) - the region in which to deploy resources
+- `cockroachsql:host` (environment: `COCKROACH_HOST`) - CockroachDB host
+- `cockroachsql:port` (environment: `COCKROACH_PORT`) - port (default: `26257`)
+- `cockroachsql:database` (environment: `COCKROACH_DATABASE`) - database name (default: `defaultdb`)
+- `cockroachsql:username` (environment: `COCKROACH_USER`) - username (default: `root`)
+- `cockroachsql:password` (environment: `COCKROACH_PASSWORD`) - password
+- `cockroachsql:url` (environment: `COCKROACH_URL`) - connection URL; overrides all other connection parameters
+- `cockroachsql:sslmode` (environment: `COCKROACH_SSLMODE`) - SSL mode (default: `require`)
+- `cockroachsql:connectTimeout` (environment: `COCKROACH_CONNECT_TIMEOUT`) - connection timeout in seconds (default: `180`)
 
 ## Reference
 
