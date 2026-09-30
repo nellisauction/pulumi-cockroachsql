@@ -33,7 +33,7 @@ class _ExportableConfig(types.ModuleType):
         """
         Maximum wait for connection, in seconds. Zero or not specified means wait indefinitely.
         """
-        return __config__.get_int('connectTimeout') or (_utilities.get_env_int('PGCONNECT_TIMEOUT') or 180)
+        return __config__.get_int('connectTimeout') or (_utilities.get_env_int('COCKROACH_CONNECT_TIMEOUT') or 180)
 
     @_builtins.property
     def database(self) -> Optional[str]:
@@ -93,7 +93,7 @@ class _ExportableConfig(types.ModuleType):
         """
         This option determines whether or with what priority a secure SSL TCP/IP connection will be negotiated with the CockroachDB server
         """
-        return __config__.get('sslmode') or _utilities.get_env('PGSSLMODE')
+        return __config__.get('sslmode') or _utilities.get_env('COCKROACH_SSLMODE')
 
     @_builtins.property
     def sslrootcert(self) -> Optional[str]:

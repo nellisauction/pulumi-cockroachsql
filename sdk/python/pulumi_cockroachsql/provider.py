@@ -56,7 +56,7 @@ class ProviderArgs:
         if clientcert is not None:
             pulumi.set(__self__, "clientcert", clientcert)
         if connect_timeout is None:
-            connect_timeout = (_utilities.get_env_int('PGCONNECT_TIMEOUT') or 180)
+            connect_timeout = (_utilities.get_env_int('COCKROACH_CONNECT_TIMEOUT') or 180)
         if connect_timeout is not None:
             pulumi.set(__self__, "connect_timeout", connect_timeout)
         if database is not None:
@@ -79,7 +79,7 @@ class ProviderArgs:
         if ssl_mode is not None:
             pulumi.set(__self__, "ssl_mode", ssl_mode)
         if sslmode is None:
-            sslmode = _utilities.get_env('PGSSLMODE')
+            sslmode = _utilities.get_env('COCKROACH_SSLMODE')
         if sslmode is not None:
             pulumi.set(__self__, "sslmode", sslmode)
         if sslrootcert is not None:
@@ -370,7 +370,7 @@ class Provider(pulumi.ProviderResource):
 
             __props__.__dict__["clientcert"] = pulumi.Output.from_input(clientcert).apply(pulumi.runtime.to_json) if clientcert is not None else None
             if connect_timeout is None:
-                connect_timeout = (_utilities.get_env_int('PGCONNECT_TIMEOUT') or 180)
+                connect_timeout = (_utilities.get_env_int('COCKROACH_CONNECT_TIMEOUT') or 180)
             __props__.__dict__["connect_timeout"] = pulumi.Output.from_input(connect_timeout).apply(pulumi.runtime.to_json) if connect_timeout is not None else None
             __props__.__dict__["database"] = database
             __props__.__dict__["database_username"] = database_username
@@ -381,7 +381,7 @@ class Provider(pulumi.ProviderResource):
             __props__.__dict__["port"] = pulumi.Output.from_input(port).apply(pulumi.runtime.to_json) if port is not None else None
             __props__.__dict__["ssl_mode"] = ssl_mode
             if sslmode is None:
-                sslmode = _utilities.get_env('PGSSLMODE')
+                sslmode = _utilities.get_env('COCKROACH_SSLMODE')
             __props__.__dict__["sslmode"] = sslmode
             __props__.__dict__["sslrootcert"] = sslrootcert
             __props__.__dict__["superuser"] = pulumi.Output.from_input(superuser).apply(pulumi.runtime.to_json) if superuser is not None else None
