@@ -2,12 +2,10 @@
     "auto-aliasing": {
         "resources": {
             "cockroachsql_database": {
-                "current": "cockroachsql:index/database:Database",
-                "majorVersion": 1
+                "current": "cockroachsql:index/database:Database"
             },
             "cockroachsql_default_privileges": {
                 "current": "cockroachsql:index/defaultPrivileges:DefaultPrivileges",
-                "majorVersion": 1,
                 "fields": {
                     "privileges": {
                         "maxItemsOne": false
@@ -16,7 +14,6 @@
             },
             "cockroachsql_grant": {
                 "current": "cockroachsql:index/grant:Grant",
-                "majorVersion": 1,
                 "fields": {
                     "columns": {
                         "maxItemsOne": false
@@ -30,12 +27,10 @@
                 }
             },
             "cockroachsql_grant_role": {
-                "current": "cockroachsql:index/grantRole:GrantRole",
-                "majorVersion": 1
+                "current": "cockroachsql:index/grantRole:GrantRole"
             },
             "cockroachsql_role": {
                 "current": "cockroachsql:index/role:Role",
-                "majorVersion": 1,
                 "fields": {
                     "roles": {
                         "maxItemsOne": false
@@ -46,14 +41,12 @@
                 }
             },
             "cockroachsql_schema": {
-                "current": "cockroachsql:index/schema:Schema",
-                "majorVersion": 1
+                "current": "cockroachsql:index/schema:Schema"
             }
         },
         "datasources": {
             "cockroachsql_schemas": {
                 "current": "cockroachsql:index/getSchemas:getSchemas",
-                "majorVersion": 1,
                 "fields": {
                     "like_all_patterns": {
                         "maxItemsOne": false
@@ -71,7 +64,6 @@
             },
             "cockroachsql_sequences": {
                 "current": "cockroachsql:index/getSequences:getSequences",
-                "majorVersion": 1,
                 "fields": {
                     "like_all_patterns": {
                         "maxItemsOne": false
@@ -92,7 +84,6 @@
             },
             "cockroachsql_tables": {
                 "current": "cockroachsql:index/getTables:getTables",
-                "majorVersion": 1,
                 "fields": {
                     "like_all_patterns": {
                         "maxItemsOne": false

@@ -48,12 +48,12 @@ func NewProvider(ctx *pulumi.Context,
 	}
 
 	if args.ConnectTimeout == nil {
-		if d := internal.GetEnvOrDefault(180, internal.ParseEnvInt, "PGCONNECT_TIMEOUT"); d != nil {
+		if d := internal.GetEnvOrDefault(180, internal.ParseEnvInt, "COCKROACH_CONNECT_TIMEOUT"); d != nil {
 			args.ConnectTimeout = pulumi.IntPtr(d.(int))
 		}
 	}
 	if args.Sslmode == nil {
-		if d := internal.GetEnvOrDefault(nil, nil, "PGSSLMODE"); d != nil {
+		if d := internal.GetEnvOrDefault(nil, nil, "COCKROACH_SSLMODE"); d != nil {
 			args.Sslmode = pulumi.StringPtr(d.(string))
 		}
 	}

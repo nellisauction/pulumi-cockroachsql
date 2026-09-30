@@ -23,7 +23,7 @@ func GetConnectTimeout(ctx *pulumi.Context) int {
 		return v
 	}
 	var value int
-	if d := internal.GetEnvOrDefault(180, internal.ParseEnvInt, "PGCONNECT_TIMEOUT"); d != nil {
+	if d := internal.GetEnvOrDefault(180, internal.ParseEnvInt, "COCKROACH_CONNECT_TIMEOUT"); d != nil {
 		value = d.(int)
 	}
 	return value
@@ -76,7 +76,7 @@ func GetSslmode(ctx *pulumi.Context) string {
 		return v
 	}
 	var value string
-	if d := internal.GetEnvOrDefault(nil, nil, "PGSSLMODE"); d != nil {
+	if d := internal.GetEnvOrDefault(nil, nil, "COCKROACH_SSLMODE"); d != nil {
 		value = d.(string)
 	}
 	return value

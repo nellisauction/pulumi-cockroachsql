@@ -42,7 +42,7 @@ namespace Pulumi.CockroachSql
             set => _clientcert.Set(value);
         }
 
-        private static readonly __Value<int?> _connectTimeout = new __Value<int?>(() => __config.GetInt32("connectTimeout") ?? Utilities.GetEnvInt32("PGCONNECT_TIMEOUT") ?? 180);
+        private static readonly __Value<int?> _connectTimeout = new __Value<int?>(() => __config.GetInt32("connectTimeout") ?? Utilities.GetEnvInt32("COCKROACH_CONNECT_TIMEOUT") ?? 180);
         /// <summary>
         /// Maximum wait for connection, in seconds. Zero or not specified means wait indefinitely.
         /// </summary>
@@ -129,7 +129,7 @@ namespace Pulumi.CockroachSql
             set => _sslMode.Set(value);
         }
 
-        private static readonly __Value<string?> _sslmode = new __Value<string?>(() => __config.Get("sslmode") ?? Utilities.GetEnv("PGSSLMODE"));
+        private static readonly __Value<string?> _sslmode = new __Value<string?>(() => __config.Get("sslmode") ?? Utilities.GetEnv("COCKROACH_SSLMODE"));
         /// <summary>
         /// This option determines whether or with what priority a secure SSL TCP/IP connection will be negotiated with the CockroachDB server
         /// </summary>

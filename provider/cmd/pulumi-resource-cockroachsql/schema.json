@@ -62,13 +62,13 @@
                 "default": 180,
                 "defaultInfo": {
                     "environment": [
-                        "PGCONNECT_TIMEOUT"
+                        "COCKROACH_CONNECT_TIMEOUT"
                     ]
                 }
             },
             "database": {
                 "type": "string",
-                "description": "The name of the database to connect to (defaults to \u003cspan pulumi-lang-nodejs=\"`defaultdb`\" pulumi-lang-dotnet=\"`Defaultdb`\" pulumi-lang-go=\"`defaultdb`\" pulumi-lang-python=\"`defaultdb`\" pulumi-lang-yaml=\"`defaultdb`\" pulumi-lang-java=\"`defaultdb`\"\u003e`defaultdb`\u003c/span\u003e)."
+                "description": "The name of the database to connect to (defaults to \u003cspan pulumi-lang-nodejs=\"`defaultdb`\" pulumi-lang-dotnet=\"`Defaultdb`\" pulumi-lang-go=\"`defaultdb`\" pulumi-lang-python=\"`defaultdb`\" pulumi-lang-yaml=\"`defaultdb`\" pulumi-lang-java=\"`defaultdb`\" pulumi-lang-hcl=\"`defaultdb`\"\u003e`defaultdb`\u003c/span\u003e)."
             },
             "databaseUsername": {
                 "type": "string",
@@ -97,14 +97,14 @@
             },
             "sslMode": {
                 "type": "string",
-                "deprecationMessage": "Rename CockroachDB provider \u003cspan pulumi-lang-nodejs=\"`sslMode`\" pulumi-lang-dotnet=\"`SslMode`\" pulumi-lang-go=\"`sslMode`\" pulumi-lang-python=\"`ssl_mode`\" pulumi-lang-yaml=\"`sslMode`\" pulumi-lang-java=\"`sslMode`\"\u003e`sslMode`\u003c/span\u003e attribute to \u003cspan pulumi-lang-nodejs=\"`sslmode`\" pulumi-lang-dotnet=\"`Sslmode`\" pulumi-lang-go=\"`sslmode`\" pulumi-lang-python=\"`sslmode`\" pulumi-lang-yaml=\"`sslmode`\" pulumi-lang-java=\"`sslmode`\"\u003e`sslmode`\u003c/span\u003e"
+                "deprecationMessage": "Rename CockroachDB provider \u003cspan pulumi-lang-nodejs=\"`sslMode`\" pulumi-lang-dotnet=\"`SslMode`\" pulumi-lang-go=\"`sslMode`\" pulumi-lang-python=\"`ssl_mode`\" pulumi-lang-yaml=\"`sslMode`\" pulumi-lang-java=\"`sslMode`\" pulumi-lang-hcl=\"`ssl_mode`\"\u003e`sslMode`\u003c/span\u003e attribute to \u003cspan pulumi-lang-nodejs=\"`sslmode`\" pulumi-lang-dotnet=\"`Sslmode`\" pulumi-lang-go=\"`sslmode`\" pulumi-lang-python=\"`sslmode`\" pulumi-lang-yaml=\"`sslmode`\" pulumi-lang-java=\"`sslmode`\" pulumi-lang-hcl=\"`sslmode`\"\u003e`sslmode`\u003c/span\u003e"
             },
             "sslmode": {
                 "type": "string",
                 "description": "This option determines whether or with what priority a secure SSL TCP/IP connection will be negotiated with the CockroachDB server",
                 "defaultInfo": {
                     "environment": [
-                        "PGSSLMODE"
+                        "COCKROACH_SSLMODE"
                     ]
                 }
             },
@@ -242,7 +242,7 @@
             },
             "database": {
                 "type": "string",
-                "description": "The name of the database to connect to (defaults to \u003cspan pulumi-lang-nodejs=\"`defaultdb`\" pulumi-lang-dotnet=\"`Defaultdb`\" pulumi-lang-go=\"`defaultdb`\" pulumi-lang-python=\"`defaultdb`\" pulumi-lang-yaml=\"`defaultdb`\" pulumi-lang-java=\"`defaultdb`\"\u003e`defaultdb`\u003c/span\u003e)."
+                "description": "The name of the database to connect to (defaults to \u003cspan pulumi-lang-nodejs=\"`defaultdb`\" pulumi-lang-dotnet=\"`Defaultdb`\" pulumi-lang-go=\"`defaultdb`\" pulumi-lang-python=\"`defaultdb`\" pulumi-lang-yaml=\"`defaultdb`\" pulumi-lang-java=\"`defaultdb`\" pulumi-lang-hcl=\"`defaultdb`\"\u003e`defaultdb`\u003c/span\u003e)."
             },
             "databaseUsername": {
                 "type": "string",
@@ -271,7 +271,7 @@
             },
             "sslMode": {
                 "type": "string",
-                "deprecationMessage": "Rename CockroachDB provider \u003cspan pulumi-lang-nodejs=\"`sslMode`\" pulumi-lang-dotnet=\"`SslMode`\" pulumi-lang-go=\"`sslMode`\" pulumi-lang-python=\"`ssl_mode`\" pulumi-lang-yaml=\"`sslMode`\" pulumi-lang-java=\"`sslMode`\"\u003e`sslMode`\u003c/span\u003e attribute to \u003cspan pulumi-lang-nodejs=\"`sslmode`\" pulumi-lang-dotnet=\"`Sslmode`\" pulumi-lang-go=\"`sslmode`\" pulumi-lang-python=\"`sslmode`\" pulumi-lang-yaml=\"`sslmode`\" pulumi-lang-java=\"`sslmode`\"\u003e`sslmode`\u003c/span\u003e"
+                "deprecationMessage": "Rename CockroachDB provider \u003cspan pulumi-lang-nodejs=\"`sslMode`\" pulumi-lang-dotnet=\"`SslMode`\" pulumi-lang-go=\"`sslMode`\" pulumi-lang-python=\"`ssl_mode`\" pulumi-lang-yaml=\"`sslMode`\" pulumi-lang-java=\"`sslMode`\" pulumi-lang-hcl=\"`ssl_mode`\"\u003e`sslMode`\u003c/span\u003e attribute to \u003cspan pulumi-lang-nodejs=\"`sslmode`\" pulumi-lang-dotnet=\"`Sslmode`\" pulumi-lang-go=\"`sslmode`\" pulumi-lang-python=\"`sslmode`\" pulumi-lang-yaml=\"`sslmode`\" pulumi-lang-java=\"`sslmode`\" pulumi-lang-hcl=\"`sslmode`\"\u003e`sslmode`\u003c/span\u003e"
             },
             "sslmode": {
                 "type": "string",
@@ -306,13 +306,13 @@
                 "default": 180,
                 "defaultInfo": {
                     "environment": [
-                        "PGCONNECT_TIMEOUT"
+                        "COCKROACH_CONNECT_TIMEOUT"
                     ]
                 }
             },
             "database": {
                 "type": "string",
-                "description": "The name of the database to connect to (defaults to \u003cspan pulumi-lang-nodejs=\"`defaultdb`\" pulumi-lang-dotnet=\"`Defaultdb`\" pulumi-lang-go=\"`defaultdb`\" pulumi-lang-python=\"`defaultdb`\" pulumi-lang-yaml=\"`defaultdb`\" pulumi-lang-java=\"`defaultdb`\"\u003e`defaultdb`\u003c/span\u003e)."
+                "description": "The name of the database to connect to (defaults to \u003cspan pulumi-lang-nodejs=\"`defaultdb`\" pulumi-lang-dotnet=\"`Defaultdb`\" pulumi-lang-go=\"`defaultdb`\" pulumi-lang-python=\"`defaultdb`\" pulumi-lang-yaml=\"`defaultdb`\" pulumi-lang-java=\"`defaultdb`\" pulumi-lang-hcl=\"`defaultdb`\"\u003e`defaultdb`\u003c/span\u003e)."
             },
             "databaseUsername": {
                 "type": "string",
@@ -341,14 +341,14 @@
             },
             "sslMode": {
                 "type": "string",
-                "deprecationMessage": "Rename CockroachDB provider \u003cspan pulumi-lang-nodejs=\"`sslMode`\" pulumi-lang-dotnet=\"`SslMode`\" pulumi-lang-go=\"`sslMode`\" pulumi-lang-python=\"`ssl_mode`\" pulumi-lang-yaml=\"`sslMode`\" pulumi-lang-java=\"`sslMode`\"\u003e`sslMode`\u003c/span\u003e attribute to \u003cspan pulumi-lang-nodejs=\"`sslmode`\" pulumi-lang-dotnet=\"`Sslmode`\" pulumi-lang-go=\"`sslmode`\" pulumi-lang-python=\"`sslmode`\" pulumi-lang-yaml=\"`sslmode`\" pulumi-lang-java=\"`sslmode`\"\u003e`sslmode`\u003c/span\u003e"
+                "deprecationMessage": "Rename CockroachDB provider \u003cspan pulumi-lang-nodejs=\"`sslMode`\" pulumi-lang-dotnet=\"`SslMode`\" pulumi-lang-go=\"`sslMode`\" pulumi-lang-python=\"`ssl_mode`\" pulumi-lang-yaml=\"`sslMode`\" pulumi-lang-java=\"`sslMode`\" pulumi-lang-hcl=\"`ssl_mode`\"\u003e`sslMode`\u003c/span\u003e attribute to \u003cspan pulumi-lang-nodejs=\"`sslmode`\" pulumi-lang-dotnet=\"`Sslmode`\" pulumi-lang-go=\"`sslmode`\" pulumi-lang-python=\"`sslmode`\" pulumi-lang-yaml=\"`sslmode`\" pulumi-lang-java=\"`sslmode`\" pulumi-lang-hcl=\"`sslmode`\"\u003e`sslmode`\u003c/span\u003e"
             },
             "sslmode": {
                 "type": "string",
                 "description": "This option determines whether or with what priority a secure SSL TCP/IP connection will be negotiated with the CockroachDB server",
                 "defaultInfo": {
                     "environment": [
-                        "PGSSLMODE"
+                        "COCKROACH_SSLMODE"
                     ]
                 }
             },

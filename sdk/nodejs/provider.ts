@@ -80,7 +80,7 @@ export class Provider extends pulumi.ProviderResource {
         opts = opts || {};
         {
             resourceInputs["clientcert"] = pulumi.output(args?.clientcert).apply(JSON.stringify);
-            resourceInputs["connectTimeout"] = pulumi.output((args?.connectTimeout) ?? (utilities.getEnvNumber("PGCONNECT_TIMEOUT") || 180)).apply(JSON.stringify);
+            resourceInputs["connectTimeout"] = pulumi.output((args?.connectTimeout) ?? (utilities.getEnvNumber("COCKROACH_CONNECT_TIMEOUT") || 180)).apply(JSON.stringify);
             resourceInputs["database"] = args?.database;
             resourceInputs["databaseUsername"] = args?.databaseUsername;
             resourceInputs["expectedVersion"] = args?.expectedVersion;
@@ -89,7 +89,7 @@ export class Provider extends pulumi.ProviderResource {
             resourceInputs["password"] = args?.password ? pulumi.secret(args.password) : undefined;
             resourceInputs["port"] = pulumi.output(args?.port).apply(JSON.stringify);
             resourceInputs["sslMode"] = args?.sslMode;
-            resourceInputs["sslmode"] = (args?.sslmode) ?? utilities.getEnv("PGSSLMODE");
+            resourceInputs["sslmode"] = (args?.sslmode) ?? utilities.getEnv("COCKROACH_SSLMODE");
             resourceInputs["sslrootcert"] = args?.sslrootcert;
             resourceInputs["superuser"] = pulumi.output(args?.superuser).apply(JSON.stringify);
             resourceInputs["url"] = args?.url ? pulumi.secret(args.url) : undefined;

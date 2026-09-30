@@ -224,8 +224,8 @@ namespace Pulumi.CockroachSql
 
         public ProviderArgs()
         {
-            ConnectTimeout = Utilities.GetEnvInt32("PGCONNECT_TIMEOUT") ?? 180;
-            Sslmode = Utilities.GetEnv("PGSSLMODE");
+            ConnectTimeout = Utilities.GetEnvInt32("COCKROACH_CONNECT_TIMEOUT") ?? 180;
+            Sslmode = Utilities.GetEnv("COCKROACH_SSLMODE");
         }
         public static new ProviderArgs Empty => new ProviderArgs();
     }

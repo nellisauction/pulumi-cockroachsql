@@ -68,17 +68,17 @@ const _module = {
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
             case "cockroachsql:index/database:Database":
-                return new Database(name, undefined as any, { urn })
+                return new Database(name, <any>undefined, { urn })
             case "cockroachsql:index/defaultPrivileges:DefaultPrivileges":
-                return new DefaultPrivileges(name, undefined as any, { urn })
+                return new DefaultPrivileges(name, <any>undefined, { urn })
             case "cockroachsql:index/grant:Grant":
-                return new Grant(name, undefined as any, { urn })
+                return new Grant(name, <any>undefined, { urn })
             case "cockroachsql:index/grantRole:GrantRole":
-                return new GrantRole(name, undefined as any, { urn })
+                return new GrantRole(name, <any>undefined, { urn })
             case "cockroachsql:index/role:Role":
-                return new Role(name, undefined as any, { urn })
+                return new Role(name, <any>undefined, { urn })
             case "cockroachsql:index/schema:Schema":
-                return new Schema(name, undefined as any, { urn })
+                return new Schema(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
@@ -96,6 +96,6 @@ pulumi.runtime.registerResourcePackage("cockroachsql", {
         if (type !== "pulumi:providers:cockroachsql") {
             throw new Error(`unknown provider type ${type}`);
         }
-        return new Provider(name, undefined as any, { urn });
+        return new Provider(name, <any>undefined, { urn });
     },
 });

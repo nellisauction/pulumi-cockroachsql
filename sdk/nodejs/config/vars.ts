@@ -26,7 +26,7 @@ Object.defineProperty(exports, "clientcert", {
 export declare const connectTimeout: number;
 Object.defineProperty(exports, "connectTimeout", {
     get() {
-        return __config.getObject<number>("connectTimeout") ?? (utilities.getEnvNumber("PGCONNECT_TIMEOUT") || 180);
+        return __config.getObject<number>("connectTimeout") ?? (utilities.getEnvNumber("COCKROACH_CONNECT_TIMEOUT") || 180);
     },
     enumerable: true,
 });
@@ -122,7 +122,7 @@ Object.defineProperty(exports, "sslMode", {
 export declare const sslmode: string | undefined;
 Object.defineProperty(exports, "sslmode", {
     get() {
-        return __config.get("sslmode") ?? utilities.getEnv("PGSSLMODE");
+        return __config.get("sslmode") ?? utilities.getEnv("COCKROACH_SSLMODE");
     },
     enumerable: true,
 });
