@@ -1,6 +1,6 @@
 module github.com/nellisauction/pulumi-cockroachsql/examples
 
-go 1.25.8
+go 1.27.1
 
 require (
 	github.com/pulumi/pulumi/pkg/v3 v3.237.0
