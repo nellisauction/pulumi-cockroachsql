@@ -85,7 +85,8 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		Resources: map[string]*tfbridge.ResourceInfo{
 			"cockroachsql_grant_role": {
-				Tok: makeResource(mainMod, "GrantRole"),
+				Tok:                 makeResource(mainMod, "GrantRole"),
+				DeleteBeforeReplace: true,
 				Fields: map[string]*tfbridge.SchemaInfo{
 					"grant_role": {
 						CSharpName: "GrantRoleName",
@@ -94,6 +95,10 @@ func Provider() tfbridge.ProviderInfo {
 			},
 			"cockroachsql_grant": {
 				Tok:                 makeResource(mainMod, "Grant"),
+				DeleteBeforeReplace: true,
+			},
+			"cockroachsql_default_privileges": {
+				Tok:                 makeResource(mainMod, "DefaultPrivileges"),
 				DeleteBeforeReplace: true,
 			},
 		},
