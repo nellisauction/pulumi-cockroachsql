@@ -161,7 +161,7 @@ namespace Pulumi.CockroachSql
 
         private static readonly __Value<string?> _url = new __Value<string?>(() => __config.Get("url"));
         /// <summary>
-        /// Connection URL for CockroachDB. If set, this overrides other connection parameters.
+        /// Connection URL for CockroachDB. If set, this overrides the other connection parameters except `Database`: resources that target another database connect to it through this URL. The database in the URL is used as the provider default unless `Database` is set.
         /// </summary>
         public static string? Url
         {

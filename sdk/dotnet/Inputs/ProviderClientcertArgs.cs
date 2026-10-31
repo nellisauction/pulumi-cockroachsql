@@ -12,17 +12,37 @@ namespace Pulumi.CockroachSql.Inputs
 
     public sealed class ProviderClientcertArgs : global::Pulumi.ResourceArgs
     {
+        [Input("cert", required: true)]
+        private Input<string>? _cert;
+
         /// <summary>
         /// The SSL client certificate file path. The file must contain PEM encoded data.
         /// </summary>
-        [Input("cert", required: true)]
-        public Input<string> Cert { get; set; } = null!;
+        public Input<string>? Cert
+        {
+            get => _cert;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _cert = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        [Input("key", required: true)]
+        private Input<string>? _key;
 
         /// <summary>
         /// The SSL client certificate private key file path. The file must contain PEM encoded data.
         /// </summary>
-        [Input("key", required: true)]
-        public Input<string> Key { get; set; } = null!;
+        public Input<string>? Key
+        {
+            get => _key;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _key = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         /// <summary>
         /// Must be set to true if you are inlining the cert/key instead of using a file path.

@@ -60,7 +60,7 @@ export class Provider extends pulumi.ProviderResource {
      */
     declare public readonly sslrootcert: pulumi.Output<string | undefined>;
     /**
-     * Connection URL for CockroachDB. If set, this overrides other connection parameters.
+     * Connection URL for CockroachDB. If set, this overrides the other connection parameters except `database`: resources that target another database connect to it through this URL. The database in the URL is used as the provider default unless `database` is set.
      */
     declare public readonly url: pulumi.Output<string | undefined>;
     /**
@@ -168,7 +168,7 @@ export interface ProviderArgs {
      */
     superuser?: pulumi.Input<boolean | undefined>;
     /**
-     * Connection URL for CockroachDB. If set, this overrides other connection parameters.
+     * Connection URL for CockroachDB. If set, this overrides the other connection parameters except `database`: resources that target another database connect to it through this URL. The database in the URL is used as the provider default unless `database` is set.
      */
     url?: pulumi.Input<string | undefined>;
     /**

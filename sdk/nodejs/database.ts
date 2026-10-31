@@ -33,7 +33,7 @@ export class Database extends pulumi.CustomResource {
     }
 
     /**
-     * Character set encoding to use in the new database
+     * Character set encoding to use in the new database. CockroachDB only supports UTF8.
      */
     declare public readonly encoding: pulumi.Output<string>;
     /**
@@ -45,7 +45,7 @@ export class Database extends pulumi.CustomResource {
      */
     declare public readonly lcCtype: pulumi.Output<string>;
     /**
-     * The name of the database
+     * The name of the database. Changing it renames the database in place.
      */
     declare public readonly name: pulumi.Output<string>;
     /**
@@ -53,7 +53,7 @@ export class Database extends pulumi.CustomResource {
      */
     declare public readonly owner: pulumi.Output<string>;
     /**
-     * The name of the tablespace that will be associated with the new database
+     * The name of the tablespace that will be associated with the new database. CockroachDB only supports pg_default.
      */
     declare public readonly tablespaceName: pulumi.Output<string>;
     /**
@@ -101,7 +101,7 @@ export class Database extends pulumi.CustomResource {
  */
 export interface DatabaseState {
     /**
-     * Character set encoding to use in the new database
+     * Character set encoding to use in the new database. CockroachDB only supports UTF8.
      */
     encoding?: pulumi.Input<string | undefined>;
     /**
@@ -113,7 +113,7 @@ export interface DatabaseState {
      */
     lcCtype?: pulumi.Input<string | undefined>;
     /**
-     * The name of the database
+     * The name of the database. Changing it renames the database in place.
      */
     name?: pulumi.Input<string | undefined>;
     /**
@@ -121,7 +121,7 @@ export interface DatabaseState {
      */
     owner?: pulumi.Input<string | undefined>;
     /**
-     * The name of the tablespace that will be associated with the new database
+     * The name of the tablespace that will be associated with the new database. CockroachDB only supports pg_default.
      */
     tablespaceName?: pulumi.Input<string | undefined>;
     /**
@@ -135,7 +135,7 @@ export interface DatabaseState {
  */
 export interface DatabaseArgs {
     /**
-     * Character set encoding to use in the new database
+     * Character set encoding to use in the new database. CockroachDB only supports UTF8.
      */
     encoding?: pulumi.Input<string | undefined>;
     /**
@@ -147,7 +147,7 @@ export interface DatabaseArgs {
      */
     lcCtype?: pulumi.Input<string | undefined>;
     /**
-     * The name of the database
+     * The name of the database. Changing it renames the database in place.
      */
     name?: pulumi.Input<string | undefined>;
     /**
@@ -155,7 +155,7 @@ export interface DatabaseArgs {
      */
     owner?: pulumi.Input<string | undefined>;
     /**
-     * The name of the tablespace that will be associated with the new database
+     * The name of the tablespace that will be associated with the new database. CockroachDB only supports pg_default.
      */
     tablespaceName?: pulumi.Input<string | undefined>;
     /**

@@ -31,7 +31,7 @@ type Role struct {
 	PasswordWo pulumi.StringPtrOutput `pulumi:"passwordWo"`
 	// Prevents applies from updating the role password on every apply unless the value changes.
 	PasswordWoVersion pulumi.StringPtrOutput `pulumi:"passwordWoVersion"`
-	// Role(s) to grant to this new role
+	// Role(s) to grant to this role. Only the memberships listed here are managed: memberships granted outside this attribute (for example with cockroachsql_grant_role) are neither reported as drift nor revoked.
 	Roles pulumi.StringArrayOutput `pulumi:"roles"`
 	// Sets the role's search path
 	SearchPaths pulumi.StringArrayOutput `pulumi:"searchPaths"`
@@ -103,7 +103,7 @@ type roleState struct {
 	PasswordWo *string `pulumi:"passwordWo"`
 	// Prevents applies from updating the role password on every apply unless the value changes.
 	PasswordWoVersion *string `pulumi:"passwordWoVersion"`
-	// Role(s) to grant to this new role
+	// Role(s) to grant to this role. Only the memberships listed here are managed: memberships granted outside this attribute (for example with cockroachsql_grant_role) are neither reported as drift nor revoked.
 	Roles []string `pulumi:"roles"`
 	// Sets the role's search path
 	SearchPaths []string `pulumi:"searchPaths"`
@@ -135,7 +135,7 @@ type RoleState struct {
 	PasswordWo pulumi.StringPtrInput
 	// Prevents applies from updating the role password on every apply unless the value changes.
 	PasswordWoVersion pulumi.StringPtrInput
-	// Role(s) to grant to this new role
+	// Role(s) to grant to this role. Only the memberships listed here are managed: memberships granted outside this attribute (for example with cockroachsql_grant_role) are neither reported as drift nor revoked.
 	Roles pulumi.StringArrayInput
 	// Sets the role's search path
 	SearchPaths pulumi.StringArrayInput
@@ -171,7 +171,7 @@ type roleArgs struct {
 	PasswordWo *string `pulumi:"passwordWo"`
 	// Prevents applies from updating the role password on every apply unless the value changes.
 	PasswordWoVersion *string `pulumi:"passwordWoVersion"`
-	// Role(s) to grant to this new role
+	// Role(s) to grant to this role. Only the memberships listed here are managed: memberships granted outside this attribute (for example with cockroachsql_grant_role) are neither reported as drift nor revoked.
 	Roles []string `pulumi:"roles"`
 	// Sets the role's search path
 	SearchPaths []string `pulumi:"searchPaths"`
@@ -204,7 +204,7 @@ type RoleArgs struct {
 	PasswordWo pulumi.StringPtrInput
 	// Prevents applies from updating the role password on every apply unless the value changes.
 	PasswordWoVersion pulumi.StringPtrInput
-	// Role(s) to grant to this new role
+	// Role(s) to grant to this role. Only the memberships listed here are managed: memberships granted outside this attribute (for example with cockroachsql_grant_role) are neither reported as drift nor revoked.
 	Roles pulumi.StringArrayInput
 	// Sets the role's search path
 	SearchPaths pulumi.StringArrayInput
@@ -346,7 +346,7 @@ func (o RoleOutput) PasswordWoVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Role) pulumi.StringPtrOutput { return v.PasswordWoVersion }).(pulumi.StringPtrOutput)
 }
 
-// Role(s) to grant to this new role
+// Role(s) to grant to this role. Only the memberships listed here are managed: memberships granted outside this attribute (for example with cockroachsql_grant_role) are neither reported as drift nor revoked.
 func (o RoleOutput) Roles() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Role) pulumi.StringArrayOutput { return v.Roles }).(pulumi.StringArrayOutput)
 }

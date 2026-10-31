@@ -34,7 +34,7 @@ type Provider struct {
 	Sslmode pulumi.StringPtrOutput `pulumi:"sslmode"`
 	// The SSL server root certificate file path. The file must contain PEM encoded data.
 	Sslrootcert pulumi.StringPtrOutput `pulumi:"sslrootcert"`
-	// Connection URL for CockroachDB. If set, this overrides other connection parameters.
+	// Connection URL for CockroachDB. If set, this overrides the other connection parameters except `database`: resources that target another database connect to it through this URL. The database in the URL is used as the provider default unless `database` is set.
 	Url pulumi.StringPtrOutput `pulumi:"url"`
 	// CockroachDB user name to connect as
 	Username pulumi.StringPtrOutput `pulumi:"username"`
@@ -104,7 +104,7 @@ type providerArgs struct {
 	Sslrootcert *string `pulumi:"sslrootcert"`
 	// Specify if the user to connect as is a CockroachDB superuser or not.
 	Superuser *bool `pulumi:"superuser"`
-	// Connection URL for CockroachDB. If set, this overrides other connection parameters.
+	// Connection URL for CockroachDB. If set, this overrides the other connection parameters except `database`: resources that target another database connect to it through this URL. The database in the URL is used as the provider default unless `database` is set.
 	Url *string `pulumi:"url"`
 	// CockroachDB user name to connect as
 	Username *string `pulumi:"username"`
@@ -138,7 +138,7 @@ type ProviderArgs struct {
 	Sslrootcert pulumi.StringPtrInput
 	// Specify if the user to connect as is a CockroachDB superuser or not.
 	Superuser pulumi.BoolPtrInput
-	// Connection URL for CockroachDB. If set, this overrides other connection parameters.
+	// Connection URL for CockroachDB. If set, this overrides the other connection parameters except `database`: resources that target another database connect to it through this URL. The database in the URL is used as the provider default unless `database` is set.
 	Url pulumi.StringPtrInput
 	// CockroachDB user name to connect as
 	Username pulumi.StringPtrInput
@@ -244,7 +244,7 @@ func (o ProviderOutput) Sslrootcert() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.Sslrootcert }).(pulumi.StringPtrOutput)
 }
 
-// Connection URL for CockroachDB. If set, this overrides other connection parameters.
+// Connection URL for CockroachDB. If set, this overrides the other connection parameters except `database`: resources that target another database connect to it through this URL. The database in the URL is used as the provider default unless `database` is set.
 func (o ProviderOutput) Url() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.Url }).(pulumi.StringPtrOutput)
 }

@@ -44,7 +44,7 @@ class RoleArgs:
         :param pulumi.Input[_builtins.str] password_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
                Sets the role's password without storing it in the state file.
         :param pulumi.Input[_builtins.str] password_wo_version: Prevents applies from updating the role password on every apply unless the value changes.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] roles: Role(s) to grant to this new role
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] roles: Role(s) to grant to this role. Only the memberships listed here are managed: memberships granted outside this attribute (for example with cockroachsql_grant_role) are neither reported as drift nor revoked.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] search_paths: Sets the role's search path
         :param pulumi.Input[_builtins.bool] skip_drop_role: Skip actually running the DROP ROLE command when removing a ROLE from CockroachSQL
         :param pulumi.Input[_builtins.bool] skip_reassign_owned: Skip actually running the REASSIGN OWNED command when removing a role from CockroachSQL
@@ -182,7 +182,7 @@ class RoleArgs:
     @pulumi.getter
     def roles(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        Role(s) to grant to this new role
+        Role(s) to grant to this role. Only the memberships listed here are managed: memberships granted outside this attribute (for example with cockroachsql_grant_role) are neither reported as drift nor revoked.
         """
         return pulumi.get(self, "roles")
 
@@ -279,7 +279,7 @@ class _RoleState:
         :param pulumi.Input[_builtins.str] password_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
                Sets the role's password without storing it in the state file.
         :param pulumi.Input[_builtins.str] password_wo_version: Prevents applies from updating the role password on every apply unless the value changes.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] roles: Role(s) to grant to this new role
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] roles: Role(s) to grant to this role. Only the memberships listed here are managed: memberships granted outside this attribute (for example with cockroachsql_grant_role) are neither reported as drift nor revoked.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] search_paths: Sets the role's search path
         :param pulumi.Input[_builtins.bool] skip_drop_role: Skip actually running the DROP ROLE command when removing a ROLE from CockroachSQL
         :param pulumi.Input[_builtins.bool] skip_reassign_owned: Skip actually running the REASSIGN OWNED command when removing a role from CockroachSQL
@@ -417,7 +417,7 @@ class _RoleState:
     @pulumi.getter
     def roles(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        Role(s) to grant to this new role
+        Role(s) to grant to this role. Only the memberships listed here are managed: memberships granted outside this attribute (for example with cockroachsql_grant_role) are neither reported as drift nor revoked.
         """
         return pulumi.get(self, "roles")
 
@@ -520,7 +520,7 @@ class Role(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] password_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
                Sets the role's password without storing it in the state file.
         :param pulumi.Input[_builtins.str] password_wo_version: Prevents applies from updating the role password on every apply unless the value changes.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] roles: Role(s) to grant to this new role
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] roles: Role(s) to grant to this role. Only the memberships listed here are managed: memberships granted outside this attribute (for example with cockroachsql_grant_role) are neither reported as drift nor revoked.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] search_paths: Sets the role's search path
         :param pulumi.Input[_builtins.bool] skip_drop_role: Skip actually running the DROP ROLE command when removing a ROLE from CockroachSQL
         :param pulumi.Input[_builtins.bool] skip_reassign_owned: Skip actually running the REASSIGN OWNED command when removing a role from CockroachSQL
@@ -629,7 +629,7 @@ class Role(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] password_wo: **NOTE:** This field is write-only and its value will not be updated in state as part of read operations.
                Sets the role's password without storing it in the state file.
         :param pulumi.Input[_builtins.str] password_wo_version: Prevents applies from updating the role password on every apply unless the value changes.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] roles: Role(s) to grant to this new role
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] roles: Role(s) to grant to this role. Only the memberships listed here are managed: memberships granted outside this attribute (for example with cockroachsql_grant_role) are neither reported as drift nor revoked.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] search_paths: Sets the role's search path
         :param pulumi.Input[_builtins.bool] skip_drop_role: Skip actually running the DROP ROLE command when removing a ROLE from CockroachSQL
         :param pulumi.Input[_builtins.bool] skip_reassign_owned: Skip actually running the REASSIGN OWNED command when removing a role from CockroachSQL
@@ -723,7 +723,7 @@ class Role(pulumi.CustomResource):
     @pulumi.getter
     def roles(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
         """
-        Role(s) to grant to this new role
+        Role(s) to grant to this role. Only the memberships listed here are managed: memberships granted outside this attribute (for example with cockroachsql_grant_role) are neither reported as drift nor revoked.
         """
         return pulumi.get(self, "roles")
 

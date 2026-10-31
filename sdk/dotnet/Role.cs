@@ -59,7 +59,7 @@ namespace Pulumi.CockroachSql
         public Output<string?> PasswordWoVersion { get; private set; } = null!;
 
         /// <summary>
-        /// Role(s) to grant to this new role
+        /// Role(s) to grant to this role. Only the memberships listed here are managed: memberships granted outside this attribute (for example with cockroachsql_grant_role) are neither reported as drift nor revoked.
         /// </summary>
         [Output("roles")]
         public Output<ImmutableArray<string>> Roles { get; private set; } = null!;
@@ -216,7 +216,7 @@ namespace Pulumi.CockroachSql
         private InputList<string>? _roles;
 
         /// <summary>
-        /// Role(s) to grant to this new role
+        /// Role(s) to grant to this role. Only the memberships listed here are managed: memberships granted outside this attribute (for example with cockroachsql_grant_role) are neither reported as drift nor revoked.
         /// </summary>
         public InputList<string> Roles
         {
@@ -338,7 +338,7 @@ namespace Pulumi.CockroachSql
         private InputList<string>? _roles;
 
         /// <summary>
-        /// Role(s) to grant to this new role
+        /// Role(s) to grant to this role. Only the memberships listed here are managed: memberships granted outside this attribute (for example with cockroachsql_grant_role) are neither reported as drift nor revoked.
         /// </summary>
         public InputList<string> Roles
         {

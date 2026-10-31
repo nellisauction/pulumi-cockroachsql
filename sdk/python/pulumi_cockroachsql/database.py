@@ -29,12 +29,12 @@ class DatabaseArgs:
         """
         The set of arguments for constructing a Database resource.
 
-        :param pulumi.Input[_builtins.str] encoding: Character set encoding to use in the new database
+        :param pulumi.Input[_builtins.str] encoding: Character set encoding to use in the new database. CockroachDB only supports UTF8.
         :param pulumi.Input[_builtins.str] lc_collate: Collation order (LC_COLLATE) to use in the new database
         :param pulumi.Input[_builtins.str] lc_ctype: Character classification (LC_CTYPE) to use in the new database
-        :param pulumi.Input[_builtins.str] name: The name of the database
+        :param pulumi.Input[_builtins.str] name: The name of the database. Changing it renames the database in place.
         :param pulumi.Input[_builtins.str] owner: The role name of the database owner
-        :param pulumi.Input[_builtins.str] tablespace_name: The name of the tablespace that will be associated with the new database
+        :param pulumi.Input[_builtins.str] tablespace_name: The name of the tablespace that will be associated with the new database. CockroachDB only supports pg_default.
         :param pulumi.Input[_builtins.str] template: The name of the template database from which to create the new database
         """
         if encoding is not None:
@@ -56,7 +56,7 @@ class DatabaseArgs:
     @pulumi.getter
     def encoding(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Character set encoding to use in the new database
+        Character set encoding to use in the new database. CockroachDB only supports UTF8.
         """
         return pulumi.get(self, "encoding")
 
@@ -92,7 +92,7 @@ class DatabaseArgs:
     @pulumi.getter
     def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        The name of the database
+        The name of the database. Changing it renames the database in place.
         """
         return pulumi.get(self, "name")
 
@@ -116,7 +116,7 @@ class DatabaseArgs:
     @pulumi.getter(name="tablespaceName")
     def tablespace_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        The name of the tablespace that will be associated with the new database
+        The name of the tablespace that will be associated with the new database. CockroachDB only supports pg_default.
         """
         return pulumi.get(self, "tablespace_name")
 
@@ -150,12 +150,12 @@ class _DatabaseState:
         """
         Input properties used for looking up and filtering Database resources.
 
-        :param pulumi.Input[_builtins.str] encoding: Character set encoding to use in the new database
+        :param pulumi.Input[_builtins.str] encoding: Character set encoding to use in the new database. CockroachDB only supports UTF8.
         :param pulumi.Input[_builtins.str] lc_collate: Collation order (LC_COLLATE) to use in the new database
         :param pulumi.Input[_builtins.str] lc_ctype: Character classification (LC_CTYPE) to use in the new database
-        :param pulumi.Input[_builtins.str] name: The name of the database
+        :param pulumi.Input[_builtins.str] name: The name of the database. Changing it renames the database in place.
         :param pulumi.Input[_builtins.str] owner: The role name of the database owner
-        :param pulumi.Input[_builtins.str] tablespace_name: The name of the tablespace that will be associated with the new database
+        :param pulumi.Input[_builtins.str] tablespace_name: The name of the tablespace that will be associated with the new database. CockroachDB only supports pg_default.
         :param pulumi.Input[_builtins.str] template: The name of the template database from which to create the new database
         """
         if encoding is not None:
@@ -177,7 +177,7 @@ class _DatabaseState:
     @pulumi.getter
     def encoding(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Character set encoding to use in the new database
+        Character set encoding to use in the new database. CockroachDB only supports UTF8.
         """
         return pulumi.get(self, "encoding")
 
@@ -213,7 +213,7 @@ class _DatabaseState:
     @pulumi.getter
     def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        The name of the database
+        The name of the database. Changing it renames the database in place.
         """
         return pulumi.get(self, "name")
 
@@ -237,7 +237,7 @@ class _DatabaseState:
     @pulumi.getter(name="tablespaceName")
     def tablespace_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        The name of the tablespace that will be associated with the new database
+        The name of the tablespace that will be associated with the new database. CockroachDB only supports pg_default.
         """
         return pulumi.get(self, "tablespace_name")
 
@@ -277,12 +277,12 @@ class Database(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.str] encoding: Character set encoding to use in the new database
+        :param pulumi.Input[_builtins.str] encoding: Character set encoding to use in the new database. CockroachDB only supports UTF8.
         :param pulumi.Input[_builtins.str] lc_collate: Collation order (LC_COLLATE) to use in the new database
         :param pulumi.Input[_builtins.str] lc_ctype: Character classification (LC_CTYPE) to use in the new database
-        :param pulumi.Input[_builtins.str] name: The name of the database
+        :param pulumi.Input[_builtins.str] name: The name of the database. Changing it renames the database in place.
         :param pulumi.Input[_builtins.str] owner: The role name of the database owner
-        :param pulumi.Input[_builtins.str] tablespace_name: The name of the tablespace that will be associated with the new database
+        :param pulumi.Input[_builtins.str] tablespace_name: The name of the tablespace that will be associated with the new database. CockroachDB only supports pg_default.
         :param pulumi.Input[_builtins.str] template: The name of the template database from which to create the new database
         """
         ...
@@ -356,12 +356,12 @@ class Database(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.str] encoding: Character set encoding to use in the new database
+        :param pulumi.Input[_builtins.str] encoding: Character set encoding to use in the new database. CockroachDB only supports UTF8.
         :param pulumi.Input[_builtins.str] lc_collate: Collation order (LC_COLLATE) to use in the new database
         :param pulumi.Input[_builtins.str] lc_ctype: Character classification (LC_CTYPE) to use in the new database
-        :param pulumi.Input[_builtins.str] name: The name of the database
+        :param pulumi.Input[_builtins.str] name: The name of the database. Changing it renames the database in place.
         :param pulumi.Input[_builtins.str] owner: The role name of the database owner
-        :param pulumi.Input[_builtins.str] tablespace_name: The name of the tablespace that will be associated with the new database
+        :param pulumi.Input[_builtins.str] tablespace_name: The name of the tablespace that will be associated with the new database. CockroachDB only supports pg_default.
         :param pulumi.Input[_builtins.str] template: The name of the template database from which to create the new database
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -381,7 +381,7 @@ class Database(pulumi.CustomResource):
     @pulumi.getter
     def encoding(self) -> pulumi.Output[_builtins.str]:
         """
-        Character set encoding to use in the new database
+        Character set encoding to use in the new database. CockroachDB only supports UTF8.
         """
         return pulumi.get(self, "encoding")
 
@@ -405,7 +405,7 @@ class Database(pulumi.CustomResource):
     @pulumi.getter
     def name(self) -> pulumi.Output[_builtins.str]:
         """
-        The name of the database
+        The name of the database. Changing it renames the database in place.
         """
         return pulumi.get(self, "name")
 
@@ -421,7 +421,7 @@ class Database(pulumi.CustomResource):
     @pulumi.getter(name="tablespaceName")
     def tablespace_name(self) -> pulumi.Output[_builtins.str]:
         """
-        The name of the tablespace that will be associated with the new database
+        The name of the tablespace that will be associated with the new database. CockroachDB only supports pg_default.
         """
         return pulumi.get(self, "tablespace_name")
 
