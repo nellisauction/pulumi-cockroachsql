@@ -79,7 +79,7 @@ Specify if the user to connect as is a CockroachDB superuser or not.
 
 url: Optional[str]
 """
-Connection URL for CockroachDB. If set, this overrides other connection parameters.
+Connection URL for CockroachDB. If set, this overrides the other connection parameters except `database`: resources that target another database connect to it through this URL. The database in the URL is used as the provider default unless `database` is set.
 """
 
 username: Optional[str]

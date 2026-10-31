@@ -118,7 +118,7 @@
             },
             "url": {
                 "type": "string",
-                "description": "Connection URL for CockroachDB. If set, this overrides other connection parameters.",
+                "description": "Connection URL for CockroachDB. If set, this overrides the other connection parameters except \u003cspan pulumi-lang-nodejs=\"`database`\" pulumi-lang-dotnet=\"`Database`\" pulumi-lang-go=\"`database`\" pulumi-lang-python=\"`database`\" pulumi-lang-yaml=\"`database`\" pulumi-lang-java=\"`database`\" pulumi-lang-hcl=\"`database`\"\u003e`database`\u003c/span\u003e: resources that target another database connect to it through this URL. The database in the URL is used as the provider default unless \u003cspan pulumi-lang-nodejs=\"`database`\" pulumi-lang-dotnet=\"`Database`\" pulumi-lang-go=\"`database`\" pulumi-lang-python=\"`database`\" pulumi-lang-yaml=\"`database`\" pulumi-lang-java=\"`database`\" pulumi-lang-hcl=\"`database`\"\u003e`database`\u003c/span\u003e is set.",
                 "secret": true
             },
             "username": {
@@ -132,11 +132,13 @@
             "properties": {
                 "cert": {
                     "type": "string",
-                    "description": "The SSL client certificate file path. The file must contain PEM encoded data.\n"
+                    "description": "The SSL client certificate file path. The file must contain PEM encoded data.\n",
+                    "secret": true
                 },
                 "key": {
                     "type": "string",
-                    "description": "The SSL client certificate private key file path. The file must contain PEM encoded data.\n"
+                    "description": "The SSL client certificate private key file path. The file must contain PEM encoded data.\n",
+                    "secret": true
                 },
                 "sslinline": {
                     "type": "boolean",
@@ -158,11 +160,13 @@
             "properties": {
                 "cert": {
                     "type": "string",
-                    "description": "The SSL client certificate file path. The file must contain PEM encoded data.\n"
+                    "description": "The SSL client certificate file path. The file must contain PEM encoded data.\n",
+                    "secret": true
                 },
                 "key": {
                     "type": "string",
-                    "description": "The SSL client certificate private key file path. The file must contain PEM encoded data.\n"
+                    "description": "The SSL client certificate private key file path. The file must contain PEM encoded data.\n",
+                    "secret": true
                 },
                 "sslinline": {
                     "type": "boolean",
@@ -287,7 +291,7 @@
             },
             "url": {
                 "type": "string",
-                "description": "Connection URL for CockroachDB. If set, this overrides other connection parameters.",
+                "description": "Connection URL for CockroachDB. If set, this overrides the other connection parameters except \u003cspan pulumi-lang-nodejs=\"`database`\" pulumi-lang-dotnet=\"`Database`\" pulumi-lang-go=\"`database`\" pulumi-lang-python=\"`database`\" pulumi-lang-yaml=\"`database`\" pulumi-lang-java=\"`database`\" pulumi-lang-hcl=\"`database`\"\u003e`database`\u003c/span\u003e: resources that target another database connect to it through this URL. The database in the URL is used as the provider default unless \u003cspan pulumi-lang-nodejs=\"`database`\" pulumi-lang-dotnet=\"`Database`\" pulumi-lang-go=\"`database`\" pulumi-lang-python=\"`database`\" pulumi-lang-yaml=\"`database`\" pulumi-lang-java=\"`database`\" pulumi-lang-hcl=\"`database`\"\u003e`database`\u003c/span\u003e is set.",
                 "secret": true
             },
             "username": {
@@ -362,7 +366,7 @@
             },
             "url": {
                 "type": "string",
-                "description": "Connection URL for CockroachDB. If set, this overrides other connection parameters.",
+                "description": "Connection URL for CockroachDB. If set, this overrides the other connection parameters except \u003cspan pulumi-lang-nodejs=\"`database`\" pulumi-lang-dotnet=\"`Database`\" pulumi-lang-go=\"`database`\" pulumi-lang-python=\"`database`\" pulumi-lang-yaml=\"`database`\" pulumi-lang-java=\"`database`\" pulumi-lang-hcl=\"`database`\"\u003e`database`\u003c/span\u003e: resources that target another database connect to it through this URL. The database in the URL is used as the provider default unless \u003cspan pulumi-lang-nodejs=\"`database`\" pulumi-lang-dotnet=\"`Database`\" pulumi-lang-go=\"`database`\" pulumi-lang-python=\"`database`\" pulumi-lang-yaml=\"`database`\" pulumi-lang-java=\"`database`\" pulumi-lang-hcl=\"`database`\"\u003e`database`\u003c/span\u003e is set.",
                 "secret": true
             },
             "username": {
@@ -379,7 +383,7 @@
             "properties": {
                 "encoding": {
                     "type": "string",
-                    "description": "Character set encoding to use in the new database"
+                    "description": "Character set encoding to use in the new database. CockroachDB only supports UTF8."
                 },
                 "lcCollate": {
                     "type": "string",
@@ -391,7 +395,7 @@
                 },
                 "name": {
                     "type": "string",
-                    "description": "The name of the database"
+                    "description": "The name of the database. Changing it renames the database in place."
                 },
                 "owner": {
                     "type": "string",
@@ -399,7 +403,7 @@
                 },
                 "tablespaceName": {
                     "type": "string",
-                    "description": "The name of the tablespace that will be associated with the new database"
+                    "description": "The name of the tablespace that will be associated with the new database. CockroachDB only supports pg_default."
                 },
                 "template": {
                     "type": "string",
@@ -418,7 +422,7 @@
             "inputProperties": {
                 "encoding": {
                     "type": "string",
-                    "description": "Character set encoding to use in the new database",
+                    "description": "Character set encoding to use in the new database. CockroachDB only supports UTF8.",
                     "willReplaceOnChanges": true
                 },
                 "lcCollate": {
@@ -433,8 +437,7 @@
                 },
                 "name": {
                     "type": "string",
-                    "description": "The name of the database",
-                    "willReplaceOnChanges": true
+                    "description": "The name of the database. Changing it renames the database in place."
                 },
                 "owner": {
                     "type": "string",
@@ -442,7 +445,7 @@
                 },
                 "tablespaceName": {
                     "type": "string",
-                    "description": "The name of the tablespace that will be associated with the new database",
+                    "description": "The name of the tablespace that will be associated with the new database. CockroachDB only supports pg_default.",
                     "willReplaceOnChanges": true
                 },
                 "template": {
@@ -456,7 +459,7 @@
                 "properties": {
                     "encoding": {
                         "type": "string",
-                        "description": "Character set encoding to use in the new database",
+                        "description": "Character set encoding to use in the new database. CockroachDB only supports UTF8.",
                         "willReplaceOnChanges": true
                     },
                     "lcCollate": {
@@ -471,8 +474,7 @@
                     },
                     "name": {
                         "type": "string",
-                        "description": "The name of the database",
-                        "willReplaceOnChanges": true
+                        "description": "The name of the database. Changing it renames the database in place."
                     },
                     "owner": {
                         "type": "string",
@@ -480,7 +482,7 @@
                     },
                     "tablespaceName": {
                         "type": "string",
-                        "description": "The name of the tablespace that will be associated with the new database",
+                        "description": "The name of the tablespace that will be associated with the new database. CockroachDB only supports pg_default.",
                         "willReplaceOnChanges": true
                     },
                     "template": {
@@ -576,8 +578,7 @@
                 },
                 "withGrantOption": {
                     "type": "boolean",
-                    "description": "Permit the grant recipient to grant it to others",
-                    "willReplaceOnChanges": true
+                    "description": "Permit the grant recipient to grant it to others"
                 }
             },
             "requiredInputs": [
@@ -628,8 +629,7 @@
                     },
                     "withGrantOption": {
                         "type": "boolean",
-                        "description": "Permit the grant recipient to grant it to others",
-                        "willReplaceOnChanges": true
+                        "description": "Permit the grant recipient to grant it to others"
                     }
                 },
                 "type": "object"
@@ -731,8 +731,7 @@
                 },
                 "withGrantOption": {
                     "type": "boolean",
-                    "description": "Permit the grant recipient to grant it to others",
-                    "willReplaceOnChanges": true
+                    "description": "Permit the grant recipient to grant it to others"
                 }
             },
             "requiredInputs": [
@@ -789,8 +788,7 @@
                     },
                     "withGrantOption": {
                         "type": "boolean",
-                        "description": "Permit the grant recipient to grant it to others",
-                        "willReplaceOnChanges": true
+                        "description": "Permit the grant recipient to grant it to others"
                     }
                 },
                 "type": "object"
@@ -914,7 +912,7 @@
                     "items": {
                         "type": "string"
                     },
-                    "description": "Role(s) to grant to this new role"
+                    "description": "Role(s) to grant to this role. Only the memberships listed here are managed: memberships granted outside this attribute (for example with cockroachsql_grant_role) are neither reported as drift nor revoked."
                 },
                 "searchPaths": {
                     "type": "array",
@@ -984,7 +982,7 @@
                     "items": {
                         "type": "string"
                     },
-                    "description": "Role(s) to grant to this new role"
+                    "description": "Role(s) to grant to this role. Only the memberships listed here are managed: memberships granted outside this attribute (for example with cockroachsql_grant_role) are neither reported as drift nor revoked."
                 },
                 "searchPaths": {
                     "type": "array",
@@ -1053,7 +1051,7 @@
                         "items": {
                             "type": "string"
                         },
-                        "description": "Role(s) to grant to this new role"
+                        "description": "Role(s) to grant to this role. Only the memberships listed here are managed: memberships granted outside this attribute (for example with cockroachsql_grant_role) are neither reported as drift nor revoked."
                     },
                     "searchPaths": {
                         "type": "array",

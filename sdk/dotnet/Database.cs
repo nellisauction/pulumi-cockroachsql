@@ -13,7 +13,7 @@ namespace Pulumi.CockroachSql
     public partial class Database : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Character set encoding to use in the new database
+        /// Character set encoding to use in the new database. CockroachDB only supports UTF8.
         /// </summary>
         [Output("encoding")]
         public Output<string> Encoding { get; private set; } = null!;
@@ -31,7 +31,7 @@ namespace Pulumi.CockroachSql
         public Output<string> LcCtype { get; private set; } = null!;
 
         /// <summary>
-        /// The name of the database
+        /// The name of the database. Changing it renames the database in place.
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
@@ -43,7 +43,7 @@ namespace Pulumi.CockroachSql
         public Output<string> Owner { get; private set; } = null!;
 
         /// <summary>
-        /// The name of the tablespace that will be associated with the new database
+        /// The name of the tablespace that will be associated with the new database. CockroachDB only supports pg_default.
         /// </summary>
         [Output("tablespaceName")]
         public Output<string> TablespaceName { get; private set; } = null!;
@@ -102,7 +102,7 @@ namespace Pulumi.CockroachSql
     public sealed class DatabaseArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Character set encoding to use in the new database
+        /// Character set encoding to use in the new database. CockroachDB only supports UTF8.
         /// </summary>
         [Input("encoding")]
         public Input<string>? Encoding { get; set; }
@@ -120,7 +120,7 @@ namespace Pulumi.CockroachSql
         public Input<string>? LcCtype { get; set; }
 
         /// <summary>
-        /// The name of the database
+        /// The name of the database. Changing it renames the database in place.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
@@ -132,7 +132,7 @@ namespace Pulumi.CockroachSql
         public Input<string>? Owner { get; set; }
 
         /// <summary>
-        /// The name of the tablespace that will be associated with the new database
+        /// The name of the tablespace that will be associated with the new database. CockroachDB only supports pg_default.
         /// </summary>
         [Input("tablespaceName")]
         public Input<string>? TablespaceName { get; set; }
@@ -152,7 +152,7 @@ namespace Pulumi.CockroachSql
     public sealed class DatabaseState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Character set encoding to use in the new database
+        /// Character set encoding to use in the new database. CockroachDB only supports UTF8.
         /// </summary>
         [Input("encoding")]
         public Input<string>? Encoding { get; set; }
@@ -170,7 +170,7 @@ namespace Pulumi.CockroachSql
         public Input<string>? LcCtype { get; set; }
 
         /// <summary>
-        /// The name of the database
+        /// The name of the database. Changing it renames the database in place.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
@@ -182,7 +182,7 @@ namespace Pulumi.CockroachSql
         public Input<string>? Owner { get; set; }
 
         /// <summary>
-        /// The name of the tablespace that will be associated with the new database
+        /// The name of the tablespace that will be associated with the new database. CockroachDB only supports pg_default.
         /// </summary>
         [Input("tablespaceName")]
         public Input<string>? TablespaceName { get; set; }

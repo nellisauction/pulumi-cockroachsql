@@ -64,7 +64,7 @@ namespace Pulumi.CockroachSql
         public Output<string?> Sslrootcert { get; private set; } = null!;
 
         /// <summary>
-        /// Connection URL for CockroachDB. If set, this overrides other connection parameters.
+        /// Connection URL for CockroachDB. If set, this overrides the other connection parameters except `Database`: resources that target another database connect to it through this URL. The database in the URL is used as the provider default unless `Database` is set.
         /// </summary>
         [Output("url")]
         public Output<string?> Url { get; private set; } = null!;
@@ -204,7 +204,7 @@ namespace Pulumi.CockroachSql
         private Input<string>? _url;
 
         /// <summary>
-        /// Connection URL for CockroachDB. If set, this overrides other connection parameters.
+        /// Connection URL for CockroachDB. If set, this overrides the other connection parameters except `Database`: resources that target another database connect to it through this URL. The database in the URL is used as the provider default unless `Database` is set.
         /// </summary>
         public Input<string>? Url
         {

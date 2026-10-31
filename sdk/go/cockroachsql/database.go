@@ -14,17 +14,17 @@ import (
 type Database struct {
 	pulumi.CustomResourceState
 
-	// Character set encoding to use in the new database
+	// Character set encoding to use in the new database. CockroachDB only supports UTF8.
 	Encoding pulumi.StringOutput `pulumi:"encoding"`
 	// Collation order (LC_COLLATE) to use in the new database
 	LcCollate pulumi.StringOutput `pulumi:"lcCollate"`
 	// Character classification (LC_CTYPE) to use in the new database
 	LcCtype pulumi.StringOutput `pulumi:"lcCtype"`
-	// The name of the database
+	// The name of the database. Changing it renames the database in place.
 	Name pulumi.StringOutput `pulumi:"name"`
 	// The role name of the database owner
 	Owner pulumi.StringOutput `pulumi:"owner"`
-	// The name of the tablespace that will be associated with the new database
+	// The name of the tablespace that will be associated with the new database. CockroachDB only supports pg_default.
 	TablespaceName pulumi.StringOutput `pulumi:"tablespaceName"`
 	// The name of the template database from which to create the new database
 	Template pulumi.StringOutput `pulumi:"template"`
@@ -60,34 +60,34 @@ func GetDatabase(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Database resources.
 type databaseState struct {
-	// Character set encoding to use in the new database
+	// Character set encoding to use in the new database. CockroachDB only supports UTF8.
 	Encoding *string `pulumi:"encoding"`
 	// Collation order (LC_COLLATE) to use in the new database
 	LcCollate *string `pulumi:"lcCollate"`
 	// Character classification (LC_CTYPE) to use in the new database
 	LcCtype *string `pulumi:"lcCtype"`
-	// The name of the database
+	// The name of the database. Changing it renames the database in place.
 	Name *string `pulumi:"name"`
 	// The role name of the database owner
 	Owner *string `pulumi:"owner"`
-	// The name of the tablespace that will be associated with the new database
+	// The name of the tablespace that will be associated with the new database. CockroachDB only supports pg_default.
 	TablespaceName *string `pulumi:"tablespaceName"`
 	// The name of the template database from which to create the new database
 	Template *string `pulumi:"template"`
 }
 
 type DatabaseState struct {
-	// Character set encoding to use in the new database
+	// Character set encoding to use in the new database. CockroachDB only supports UTF8.
 	Encoding pulumi.StringPtrInput
 	// Collation order (LC_COLLATE) to use in the new database
 	LcCollate pulumi.StringPtrInput
 	// Character classification (LC_CTYPE) to use in the new database
 	LcCtype pulumi.StringPtrInput
-	// The name of the database
+	// The name of the database. Changing it renames the database in place.
 	Name pulumi.StringPtrInput
 	// The role name of the database owner
 	Owner pulumi.StringPtrInput
-	// The name of the tablespace that will be associated with the new database
+	// The name of the tablespace that will be associated with the new database. CockroachDB only supports pg_default.
 	TablespaceName pulumi.StringPtrInput
 	// The name of the template database from which to create the new database
 	Template pulumi.StringPtrInput
@@ -98,17 +98,17 @@ func (DatabaseState) ElementType() reflect.Type {
 }
 
 type databaseArgs struct {
-	// Character set encoding to use in the new database
+	// Character set encoding to use in the new database. CockroachDB only supports UTF8.
 	Encoding *string `pulumi:"encoding"`
 	// Collation order (LC_COLLATE) to use in the new database
 	LcCollate *string `pulumi:"lcCollate"`
 	// Character classification (LC_CTYPE) to use in the new database
 	LcCtype *string `pulumi:"lcCtype"`
-	// The name of the database
+	// The name of the database. Changing it renames the database in place.
 	Name *string `pulumi:"name"`
 	// The role name of the database owner
 	Owner *string `pulumi:"owner"`
-	// The name of the tablespace that will be associated with the new database
+	// The name of the tablespace that will be associated with the new database. CockroachDB only supports pg_default.
 	TablespaceName *string `pulumi:"tablespaceName"`
 	// The name of the template database from which to create the new database
 	Template *string `pulumi:"template"`
@@ -116,17 +116,17 @@ type databaseArgs struct {
 
 // The set of arguments for constructing a Database resource.
 type DatabaseArgs struct {
-	// Character set encoding to use in the new database
+	// Character set encoding to use in the new database. CockroachDB only supports UTF8.
 	Encoding pulumi.StringPtrInput
 	// Collation order (LC_COLLATE) to use in the new database
 	LcCollate pulumi.StringPtrInput
 	// Character classification (LC_CTYPE) to use in the new database
 	LcCtype pulumi.StringPtrInput
-	// The name of the database
+	// The name of the database. Changing it renames the database in place.
 	Name pulumi.StringPtrInput
 	// The role name of the database owner
 	Owner pulumi.StringPtrInput
-	// The name of the tablespace that will be associated with the new database
+	// The name of the tablespace that will be associated with the new database. CockroachDB only supports pg_default.
 	TablespaceName pulumi.StringPtrInput
 	// The name of the template database from which to create the new database
 	Template pulumi.StringPtrInput
@@ -219,7 +219,7 @@ func (o DatabaseOutput) ToDatabaseOutputWithContext(ctx context.Context) Databas
 	return o
 }
 
-// Character set encoding to use in the new database
+// Character set encoding to use in the new database. CockroachDB only supports UTF8.
 func (o DatabaseOutput) Encoding() pulumi.StringOutput {
 	return o.ApplyT(func(v *Database) pulumi.StringOutput { return v.Encoding }).(pulumi.StringOutput)
 }
@@ -234,7 +234,7 @@ func (o DatabaseOutput) LcCtype() pulumi.StringOutput {
 	return o.ApplyT(func(v *Database) pulumi.StringOutput { return v.LcCtype }).(pulumi.StringOutput)
 }
 
-// The name of the database
+// The name of the database. Changing it renames the database in place.
 func (o DatabaseOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Database) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
@@ -244,7 +244,7 @@ func (o DatabaseOutput) Owner() pulumi.StringOutput {
 	return o.ApplyT(func(v *Database) pulumi.StringOutput { return v.Owner }).(pulumi.StringOutput)
 }
 
-// The name of the tablespace that will be associated with the new database
+// The name of the tablespace that will be associated with the new database. CockroachDB only supports pg_default.
 func (o DatabaseOutput) TablespaceName() pulumi.StringOutput {
 	return o.ApplyT(func(v *Database) pulumi.StringOutput { return v.TablespaceName }).(pulumi.StringOutput)
 }

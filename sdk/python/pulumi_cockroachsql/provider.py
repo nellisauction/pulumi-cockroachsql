@@ -50,7 +50,7 @@ class ProviderArgs:
         :param pulumi.Input[_builtins.str] sslmode: This option determines whether or with what priority a secure SSL TCP/IP connection will be negotiated with the CockroachDB server
         :param pulumi.Input[_builtins.str] sslrootcert: The SSL server root certificate file path. The file must contain PEM encoded data.
         :param pulumi.Input[_builtins.bool] superuser: Specify if the user to connect as is a CockroachDB superuser or not.
-        :param pulumi.Input[_builtins.str] url: Connection URL for CockroachDB. If set, this overrides other connection parameters.
+        :param pulumi.Input[_builtins.str] url: Connection URL for CockroachDB. If set, this overrides the other connection parameters except `database`: resources that target another database connect to it through this URL. The database in the URL is used as the provider default unless `database` is set.
         :param pulumi.Input[_builtins.str] username: CockroachDB user name to connect as
         """
         if clientcert is not None:
@@ -249,7 +249,7 @@ class ProviderArgs:
     @pulumi.getter
     def url(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Connection URL for CockroachDB. If set, this overrides other connection parameters.
+        Connection URL for CockroachDB. If set, this overrides the other connection parameters except `database`: resources that target another database connect to it through this URL. The database in the URL is used as the provider default unless `database` is set.
         """
         return pulumi.get(self, "url")
 
@@ -313,7 +313,7 @@ class Provider(pulumi.ProviderResource):
         :param pulumi.Input[_builtins.str] sslmode: This option determines whether or with what priority a secure SSL TCP/IP connection will be negotiated with the CockroachDB server
         :param pulumi.Input[_builtins.str] sslrootcert: The SSL server root certificate file path. The file must contain PEM encoded data.
         :param pulumi.Input[_builtins.bool] superuser: Specify if the user to connect as is a CockroachDB superuser or not.
-        :param pulumi.Input[_builtins.str] url: Connection URL for CockroachDB. If set, this overrides other connection parameters.
+        :param pulumi.Input[_builtins.str] url: Connection URL for CockroachDB. If set, this overrides the other connection parameters except `database`: resources that target another database connect to it through this URL. The database in the URL is used as the provider default unless `database` is set.
         :param pulumi.Input[_builtins.str] username: CockroachDB user name to connect as
         """
         ...
@@ -461,7 +461,7 @@ class Provider(pulumi.ProviderResource):
     @pulumi.getter
     def url(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        Connection URL for CockroachDB. If set, this overrides other connection parameters.
+        Connection URL for CockroachDB. If set, this overrides the other connection parameters except `database`: resources that target another database connect to it through this URL. The database in the URL is used as the provider default unless `database` is set.
         """
         return pulumi.get(self, "url")
 

@@ -47,7 +47,7 @@ func TestReplacementDeletesBeforeCreating(t *testing.T) {
 			}),
 		},
 		{
-			name: "DefaultPrivileges with_grant_option change",
+			name: "DefaultPrivileges schema change",
 			typ:  "cockroachsql:index/defaultPrivileges:DefaultPrivileges",
 			olds: resource.NewPropertyMapFromMap(map[string]any{
 				"id":              "app_user_appdb_public_table",
@@ -62,11 +62,11 @@ func TestReplacementDeletesBeforeCreating(t *testing.T) {
 			news: resource.NewPropertyMapFromMap(map[string]any{
 				"role":            "app_user",
 				"database":        "appdb",
-				"schema":          "public",
+				"schema":          "reporting",
 				"objectType":      "table",
 				"privileges":      []any{"SELECT"},
 				"forAllRoles":     false,
-				"withGrantOption": true,
+				"withGrantOption": false,
 			}),
 		},
 	}

@@ -92,7 +92,7 @@ func GetSuperuser(ctx *pulumi.Context) bool {
 	return config.GetBool(ctx, "cockroachsql:superuser")
 }
 
-// Connection URL for CockroachDB. If set, this overrides other connection parameters.
+// Connection URL for CockroachDB. If set, this overrides the other connection parameters except `database`: resources that target another database connect to it through this URL. The database in the URL is used as the provider default unless `database` is set.
 func GetUrl(ctx *pulumi.Context) string {
 	return config.Get(ctx, "cockroachsql:url")
 }

@@ -150,7 +150,7 @@ Object.defineProperty(exports, "superuser", {
 });
 
 /**
- * Connection URL for CockroachDB. If set, this overrides other connection parameters.
+ * Connection URL for CockroachDB. If set, this overrides the other connection parameters except `database`: resources that target another database connect to it through this URL. The database in the URL is used as the provider default unless `database` is set.
  */
 export declare const url: string | undefined;
 Object.defineProperty(exports, "url", {

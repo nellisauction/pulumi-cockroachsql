@@ -66,7 +66,7 @@ export class Role extends pulumi.CustomResource {
      */
     declare public readonly passwordWoVersion: pulumi.Output<string | undefined>;
     /**
-     * Role(s) to grant to this new role
+     * Role(s) to grant to this role. Only the memberships listed here are managed: memberships granted outside this attribute (for example with cockroachsql_grant_role) are neither reported as drift nor revoked.
      */
     declare public readonly roles: pulumi.Output<string[] | undefined>;
     /**
@@ -179,7 +179,7 @@ export interface RoleState {
      */
     passwordWoVersion?: pulumi.Input<string | undefined>;
     /**
-     * Role(s) to grant to this new role
+     * Role(s) to grant to this role. Only the memberships listed here are managed: memberships granted outside this attribute (for example with cockroachsql_grant_role) are neither reported as drift nor revoked.
      */
     roles?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
@@ -242,7 +242,7 @@ export interface RoleArgs {
      */
     passwordWoVersion?: pulumi.Input<string | undefined>;
     /**
-     * Role(s) to grant to this new role
+     * Role(s) to grant to this role. Only the memberships listed here are managed: memberships granted outside this attribute (for example with cockroachsql_grant_role) are neither reported as drift nor revoked.
      */
     roles?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
